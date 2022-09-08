@@ -1,0 +1,17 @@
+{
+  "issuerCardRefId":"221212",
+  "fpan":"3333",
+  "exp":"0124",
+  "cvv":"325",
+  "postalAddressInfo":{
+    "principalAddress":"av lima",
+    "secondAddress":"second Address",
+    "city":"lima",
+    "postalCode":"051",
+    "country":"peru"
+
+  },
+  "cardholderName":"dd",
+  "phoneNumber":"eee",
+  "email":"jjj"
+}

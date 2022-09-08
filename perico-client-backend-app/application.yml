@@ -1,0 +1,78 @@
+logging.level:
+  root: INFO
+  pe.perico.client: DEBUG
+  org.springframework.web: DEBUG
+  com.microsoft: ERROR
+
+server:
+  port: 8080
+
+spring:
+  jackson:
+    time-zone: America/Lima
+    locale: es_PE
+  jpa:
+    show-sql: true
+    properties.hibernate.dialect: org.hibernate.dialect.SQLServer2014Dialect
+    open-in-view: false
+  datasource:
+    url: jdbc:h2:mem:mydb
+    username: sa
+    password: password
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, perico-client-features
+
+opentracing:
+  jaeger:
+    enabled: true
+    enable-b3-propagation: true
+    log-spans: true
+    const-sampler:
+      decision: true
+    http-sender:
+      url: http://localhost:14268/api/traces
+
+perico.client.backend:
+  features:
+    panicEnabled: false
+  configuration:
+    topUpStatement: Token XPAY Service
+  crypto:
+    algorithm: PBKDF2WithHmacSHA256
+    salt: salt
+    secret: secret
+  db:
+    url: jdbc:h2:file:...
+    username: data populated with keyVault properties
+    password: data populated with keyVault properties
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  cache:
+    #    host: data populated with keyVault properties
+    #    port: data populated with keyVault properties
+    #    password: data populated with keyVault properties
+    enable_ssl: false
+    enable_cluster: false
+    db: 10
+  elk:
+    serviceId: mdp-xpay-manager
+    visibleAuditFieldsRequest: TODOS_VISIBLES
+    visibleAuditFieldsResponse: TODOS_VISIBLES
+    #    aesKey: data populated with keyVault properties
+    #    aesInitVector: data populated with keyVault properties
+  events:
+    #    connection: data populated with keyVault properties
+    publisher: tokenpay
+    serviceId: mdp-xpay-manager
+    provider: AZURE
+    subscribers:
+  keyvault:
+  #    aesKey: data populated with keyVault properties
+  #    aesInitVector: data populated with keyVault properties
+
+  apis:
+    encryptionEnabled: false

@@ -1,0 +1,11 @@
+rivendell.mockserver:
+  port: 8082
+  esbSubscriptionKey: mocktoken
+  esbAuthorization: bW9ja3VzZXI6bW9ja3Bhc3N3b3Jk
+
+server.port: 8083
+  
+logging:
+  level:
+    org:
+      springframework: INFO

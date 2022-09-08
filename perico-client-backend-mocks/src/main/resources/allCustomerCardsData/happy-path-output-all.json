@@ -1,0 +1,15 @@
+{
+  "card": [
+    {
+      "type": "C",
+      "id": "422224****2711",
+      "subProductHost": "23",
+      "productHost": "01",
+      "statusCode": "A",
+      "beneficiaryType": "TI",
+      "agreementId": "0018",
+      "cardSituation": "2",
+      "isFirstCard": "S"
+    }
+  ]
+}

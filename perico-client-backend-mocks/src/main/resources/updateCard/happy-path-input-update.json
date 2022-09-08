@@ -1,0 +1,29 @@
+{
+  "newIssuerCardRefId": "",
+  "fpanDetails": "",
+  "newProductId": "",
+  "metadata": {
+    "cardIssuer": "",
+    "foregroundColor": "",
+    "backgroundColor": "",
+    "labelColor": "",
+    "shortDescription": "",
+    "longDescription": "",
+    "contact": {
+      "website": "",
+      "name": "",
+      "email": "",
+      "number": ""
+    },
+    "privacyPolicyURL": "",
+    "termsAndConditionsURL": "",
+    "isTokenNotificationsAllow": true,
+    "isFPANNotificationsAllow": false,
+    "appLaunchURL": "",
+    "appLaunchURLScheme": "",
+    "transactionServiceURL": "",
+    "transactionPushTopic": "",
+    "messageServiceURL": "",
+    "messagePushTopic": ""
+  }
+}

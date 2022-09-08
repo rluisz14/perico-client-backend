@@ -1,0 +1,26 @@
+version: '3'
+services:
+  mdp-xpay-demo:
+    image: mdp-xpay-tokenpay
+    build:
+      context: mdp-xpay-tokenpay-app/
+      dockerfile: ./src/main/docker/Dockerfile
+    ports:
+      - 8080:8080
+  redis:
+    image: redis:4-alpine
+    command: sh -c 'echo "requirepass password" | redis-server -'
+    ports:
+      - 6379:6379
+  redis-client:
+    image: redis:4-alpine
+    command: redis-cli -h redis
+    depends_on:
+      - redis
+  mocks:
+    image: mdp-xpay-tokenpay-mocks:latest
+    build:
+      context: mdp-xpay-tokenpay-mocks/
+      dockerfile: ./src/main/docker/Dockerfile
+    ports:
+      - 8081:8081

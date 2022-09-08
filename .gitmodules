@@ -1,0 +1,3 @@
+[submodule "mdp-xpay-devops"]
+	path = mdp-xpay-devops
+	url = git@bitbucket.org:ibkteam/mdp-xpay-devops.git
