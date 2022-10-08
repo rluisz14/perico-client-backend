@@ -8,7 +8,7 @@ import org.springframework.hateoas.RepresentationModel;
 import java.io.Serializable;
 
 /**
- * @author X10144 on 9/02/2021
+ * @author rluisz14  on 08/10/2022
  */
 @Data
 @NoArgsConstructor

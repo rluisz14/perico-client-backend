@@ -10,7 +10,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import java.io.Serializable;
 
 /**
- * @author X10144 on 21/10/2020
+ * @author rluisz14  on 21/10/2020
  */
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Service implements Serializable {

@@ -1,7 +1,7 @@
 package pe.perico.client.backend.exception;
 
 /**
- * @author X10144 on 7/07/2020
+ * @author rluisz14  on 7/07/2020
  * @project theshire-card
  */
 public class BadParameterException {
