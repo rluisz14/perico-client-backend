@@ -14,5 +14,5 @@ public interface CategoryRepository {
     List<Category> findAllCategories();
     String registerCategory(Category category);
     String updateCategory(Category category);
-    String deleteCategory(String categoryId);
+    String deleteCategory(Long categoryId);
 }

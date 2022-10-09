@@ -15,5 +15,5 @@ public interface ProductRepository {
     List<Product> findProductByCategoryId(String categoryId);
     String registerProduct(Product product);
     String updateProduct(Product product);
-    String deleteProduct(Product productId);
+    String deleteProduct(Long productId);
 }

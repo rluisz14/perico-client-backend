@@ -17,8 +17,9 @@ import java.io.Serializable;
 public class Person implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private String personId;
+    private Long personId;
     private String personName;
+    private String personLastName;
     private String personPhoneNumber;
     private String personAddress;
     private String personAddressReference;

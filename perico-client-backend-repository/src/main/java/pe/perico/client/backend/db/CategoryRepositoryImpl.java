@@ -93,7 +93,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     }
 
     @Override
-    public String deleteCategory(String categoryId) {
+    public String deleteCategory(Long categoryId) {
         return null;
     }
 }

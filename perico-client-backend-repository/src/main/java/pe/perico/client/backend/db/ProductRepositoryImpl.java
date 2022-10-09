@@ -50,7 +50,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public String deleteProduct(Product productId) {
+    public String deleteProduct(Long productId) {
         return null;
     }
 }

@@ -1,9 +1,9 @@
-package pe.perico.client.backend.domain;
+package pe.perico.client.backend.controller.web.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
 
@@ -11,14 +11,11 @@ import java.io.Serializable;
  * @author rluisz14 on 08/10/2022
  */
 @Data
-@Builder
-@AllArgsConstructor
+@NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class OrderDetail implements Serializable {
+public class OrderDetailRequestWebDto extends RepresentationModel<OrderDetailRequestWebDto> implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Long orderDetailId;
-    private Long orderId;
     private Long offerId;
     private Long productId;
     private Double price;

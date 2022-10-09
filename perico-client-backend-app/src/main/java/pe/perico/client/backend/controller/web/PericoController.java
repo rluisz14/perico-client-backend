@@ -5,7 +5,10 @@ import org.springframework.http.*;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import pe.perico.client.backend.controller.web.dto.CategoryResponseWebDto;
+import pe.perico.client.backend.controller.web.dto.OrderRequestWebDto;
+import pe.perico.client.backend.controller.web.dto.OrderResponseWebDto;
 import pe.perico.client.backend.controller.web.dto.ProductResponseWebDto;
+import pe.perico.client.backend.service.OrderService;
 import pe.perico.client.backend.service.ProductService;
 import pe.perico.client.backend.service.CategoryService;
 
@@ -22,12 +25,15 @@ public class PericoController {
 
     private final CategoryService categoryService;
     private final ProductService productService;
+    private final OrderService orderService;
 
     public PericoController(CategoryService categoryService,
-                            ProductService productService) {
+                            ProductService productService,
+                            OrderService orderService) {
         super();
         this.categoryService = categoryService;
         this.productService = productService;
+        this.orderService = orderService;
     }
 
     @GetMapping("/healthCheck")
@@ -59,8 +65,22 @@ public class PericoController {
             ProductResponseWebDto response = productService.getProductByCategoryId(categoryId);
             return ResponseEntity.status(HttpStatus.OK.value())
                     .contentType(MediaType.APPLICATION_JSON).body(response);
-        }else {
+        } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ProductResponseWebDto());
+        }
+    }
+
+    @PostMapping("/orders")
+    public HttpEntity<OrderResponseWebDto> registerOrder(@RequestHeader MultiValueMap<String, String> headers, @RequestBody OrderRequestWebDto orderRequestWebDto) {
+        Object organizationId = headers.get(X_ORGANIZATION_ID_HEADER.toLowerCase());
+        log.info("Header is {}", organizationId);
+        if(!Objects.isNull(organizationId) && !((List<?>) organizationId).isEmpty()
+                && ((List<?>) organizationId).get(0).toString().equalsIgnoreCase("PERICO_CLIENT")){
+            OrderResponseWebDto response = orderService.registerOrder(orderRequestWebDto);
+            return ResponseEntity.status(HttpStatus.OK.value())
+                    .contentType(MediaType.APPLICATION_JSON).body(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new OrderResponseWebDto());
         }
     }
 

@@ -1,21 +1,21 @@
-package pe.perico.client.backend.domain;
+package pe.perico.client.backend.controller.web.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
+import java.util.List;
 
 /**
  * @author rluisz14 on 08/10/2022
  */
 @Data
-@Builder
-@AllArgsConstructor
+@NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Order implements Serializable {
+public class OrderRequestWebDto extends RepresentationModel<OrderRequestWebDto> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long orderId;
@@ -24,4 +24,5 @@ public class Order implements Serializable {
     private ZonedDateTime orderDate;
     private ZonedDateTime orderDeliveredDate;
     private String orderStatus;
+    List<OrderDetailRequestWebDto> orderDetails;
 }
