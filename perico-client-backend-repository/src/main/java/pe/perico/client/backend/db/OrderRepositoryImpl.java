@@ -7,8 +7,6 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import pe.perico.client.backend.domain.Order;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +24,6 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     private static final String TBL_ORDER = "Order";
     private static final String SCHEMA_BUSINESS = "Business";
-    private static final String INIT_STATUS = "RECIBIDA";
     @Override
     public List<Order> findAllOrders() {
         return null;
@@ -37,15 +34,16 @@ public class OrderRepositoryImpl implements OrderRepository {
         SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
                 .withSchemaName(SCHEMA_BUSINESS)
                 .withTableName(TBL_ORDER)
-                .usingColumns("clientUserId", "employeeUserId", "orderDate",
+                .usingColumns("clientUserId", "employeeUserId", "offerId", "orderDate",
                         "orderDeliveredDate", "orderStatus")
                 .usingGeneratedKeyColumns("orderId");
         Map<String, Object> params = new HashMap<>();
         params.put("clientUserId", order.getClientUserId());
         params.put("employeeUserId", order.getEmployeeUserId());
-        params.put("orderDate", ZonedDateTime.now(ZoneId.of("America/Bogota")));
+        params.put("offerId", order.getOfferId());
+        params.put("orderDate", order.getOrderDeliveredDate());
         params.put("orderDeliveredDate", order.getOrderDeliveredDate());
-        params.put("orderStatus", INIT_STATUS);
+        params.put("orderStatus", order.getOrderStatus());
         Number orderId = simpleJdbcInsert.executeAndReturnKey(params);
         return String.valueOf(orderId);
     }

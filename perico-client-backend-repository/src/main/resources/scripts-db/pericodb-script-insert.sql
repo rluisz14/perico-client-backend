@@ -54,10 +54,10 @@ INSERT INTO [Business].[Person]([personName],[personLastName],[personPhoneNumber
 GO
 
 /****** Object:  Table [Business].[User]    Script Date: 08/10/2022 15:13:33 ******/
-INSERT INTO [Business].[User]([personId],[userName],[userPassword,[userType],[userCreationDate],[userStatus]) VALUES((SELECT personId FROM [Business].[Person] WHERE personName = 'CARLA' AND personLastName = 'GONZALES'),'cgonzales','cg123','CLIENT',CURRENT_TIMESTAMP,'A')
+INSERT INTO [Business].[User]([personId],[userName],[userPassword],[userType],[userCreationDate],[userStatus]) VALUES((SELECT personId FROM [Business].[Person] WHERE personName = 'CARLA' AND personLastName = 'GONZALES'),'cgonzales','cg123','CLIENT',CURRENT_TIMESTAMP,'A')
 GO
 
-INSERT INTO [Business].[User]([personId],[userName],[userPassword,[userType],[userCreationDate],[userStatus]) VALUES((SELECT personId FROM [Business].[Person] WHERE personName = 'LUIS' AND personLastName = 'CORRALES'),'lcorrales','lc123','EMPLOYEE',CURRENT_TIMESTAMP,'A')
+INSERT INTO [Business].[User]([personId],[userName],[userPassword],[userType],[userCreationDate],[userStatus]) VALUES((SELECT personId FROM [Business].[Person] WHERE personName = 'LUIS' AND personLastName = 'CORRALES'),'lcorrales','lc123','EMPLOYEE',CURRENT_TIMESTAMP,'A')
 GO
 
 /****** Object:  Table [Business].[Offer]   Script Date: 08/10/2022 15:13:33 ******/

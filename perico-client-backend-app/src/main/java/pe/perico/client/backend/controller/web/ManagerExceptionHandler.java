@@ -3,8 +3,7 @@ package pe.perico.client.backend.controller.web;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
 /**
- * @author rzenteno on 15/05/2020
- * @project mdp-xpay-messageprocess
+ * @author rluisz14  on 08/10/2022
  */
 @ControllerAdvice
 public class ManagerExceptionHandler {

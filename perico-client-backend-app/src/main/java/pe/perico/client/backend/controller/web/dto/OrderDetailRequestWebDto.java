@@ -16,9 +16,7 @@ import java.io.Serializable;
 public class OrderDetailRequestWebDto extends RepresentationModel<OrderDetailRequestWebDto> implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Long offerId;
     private Long productId;
     private Double price;
     private Integer quantity;
-    private Double subtotal;
 }

@@ -19,7 +19,6 @@ public class OrderDetail implements Serializable {
 
     private Long orderDetailId;
     private Long orderId;
-    private Long offerId;
     private Long productId;
     private Double price;
     private Integer quantity;

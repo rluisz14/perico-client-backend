@@ -1,4 +1,5 @@
 CREATE DATABASE [pericodb];
+GO
 
 USE [pericodb]
 GO
@@ -121,6 +122,7 @@ CREATE TABLE [Business].[Order](
 	[orderId] [bigint] IDENTITY(1,1) NOT NULL,
 	[employeeUserId] [bigint] NULL,
 	[clientUserId] [bigint] NULL,
+	[offerId] [bigint] NULL,
 	[orderDate] [datetimeoffset](7) NOT NULL,
 	[orderDeliveredDate] [datetimeoffset](7) NOT NULL,
 	[orderStatus] [nvarchar](200) NOT NULL
@@ -139,6 +141,10 @@ ALTER TABLE [Business].[Order]  WITH CHECK ADD  CONSTRAINT [FK_Order_Client] FOR
 REFERENCES [Business].[User] ([userId])
 GO
 
+ALTER TABLE [Business].[Order]  WITH CHECK ADD  CONSTRAINT [FK_Order_Offer] FOREIGN KEY([offerId])
+REFERENCES [Business].[Offer] ([offerId])
+GO
+
 /****** Object:  Table [Business].[OrderDetail]  Script Date: 08/10/2022 15:13:33 ******/
 SET ANSI_NULLS ON
 GO
@@ -147,7 +153,6 @@ GO
 CREATE TABLE [Business].[OrderDetail](
 	[orderDetailId] [bigint] IDENTITY(1,1) NOT NULL,
 	[orderId] [bigint] NULL,
-	[offerId] [bigint] NULL,
 	[productId] [bigint] NULL,
 	[price] [decimal](8,2) NOT NULL,
 	[quantity] int NOT NULL,
@@ -162,8 +167,7 @@ GO
 ALTER TABLE [Business].[OrderDetail]  WITH CHECK ADD  CONSTRAINT [FK_OrderDetail_Product] FOREIGN KEY([productId])
 REFERENCES [Business].[Product] ([productId])
 GO
-ALTER TABLE [Business].[OrderDetail]  WITH CHECK ADD  CONSTRAINT [FK_OrderDetail_Offer] FOREIGN KEY([offerId])
-REFERENCES [Business].[Offer] ([offerId])
+
 GO
 ALTER TABLE [Business].[OrderDetail]  WITH CHECK ADD  CONSTRAINT [FK_OrderDetail_Order] FOREIGN KEY([orderId])
 REFERENCES [Business].[Order] ([orderId])

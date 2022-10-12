@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import pe.perico.client.backend.controller.web.dto.OrderRequestWebDto;
 import pe.perico.client.backend.controller.web.dto.OrderResponseWebDto;
 import pe.perico.client.backend.db.OrderRepository;
-import pe.perico.client.backend.domain.Order;
+import pe.perico.client.backend.mapper.OrderMapper;
 
 @Slf4j
 @AllArgsConstructor
@@ -14,11 +14,13 @@ import pe.perico.client.backend.domain.Order;
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
+    private final OrderMapper orderMapper;
 
     @Override
     public OrderResponseWebDto registerOrder(OrderRequestWebDto orderRequestWebDto) {
         OrderResponseWebDto orderResponseWebDto = new OrderResponseWebDto();
-        orderResponseWebDto.setOrderId(orderRepository.registerOrder(new Order(null,1L,1L,null,null,"")));
+        orderResponseWebDto.setOrderId(orderRepository.
+                registerOrder(orderMapper.convertOrderRequestWebDtoToOrder(orderRequestWebDto)));
         return orderResponseWebDto;
     }
 }

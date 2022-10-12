@@ -18,11 +18,9 @@ import java.util.List;
 public class OrderRequestWebDto extends RepresentationModel<OrderRequestWebDto> implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Long orderId;
     private Long employeeUserId;
     private Long clientUserId;
-    private ZonedDateTime orderDate;
+    private Long offerId;
     private ZonedDateTime orderDeliveredDate;
-    private String orderStatus;
-    List<OrderDetailRequestWebDto> orderDetails;
+    List<OrderDetailRequestWebDto> details;
 }
