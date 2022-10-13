@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.*;
 import pe.perico.client.backend.controller.web.dto.CategoryResponseWebDto;
 import pe.perico.client.backend.controller.web.dto.OrderRequestWebDto;
 import pe.perico.client.backend.controller.web.dto.OrderResponseWebDto;
+import pe.perico.client.backend.controller.web.dto.PriceDetailsRequestWebDto;
+import pe.perico.client.backend.controller.web.dto.PriceDetailsResponseWebDto;
 import pe.perico.client.backend.controller.web.dto.ProductResponseWebDto;
 import pe.perico.client.backend.service.OrderService;
+import pe.perico.client.backend.service.PriceDetailsService;
 import pe.perico.client.backend.service.ProductService;
 import pe.perico.client.backend.service.CategoryService;
 
@@ -26,14 +29,17 @@ public class PericoController {
     private final CategoryService categoryService;
     private final ProductService productService;
     private final OrderService orderService;
+    private final PriceDetailsService priceDetailsService;
 
     public PericoController(CategoryService categoryService,
                             ProductService productService,
-                            OrderService orderService) {
+                            OrderService orderService,
+                            PriceDetailsService priceDetailsService) {
         super();
         this.categoryService = categoryService;
         this.productService = productService;
         this.orderService = orderService;
+        this.priceDetailsService = priceDetailsService;
     }
 
     @GetMapping("/healthCheck")
@@ -57,7 +63,7 @@ public class PericoController {
     }
 
     @GetMapping("/orders/products")
-    public HttpEntity<ProductResponseWebDto> getCategoryProducts(@RequestHeader MultiValueMap<String, String> headers, @RequestParam String categoryId) {
+    public HttpEntity<ProductResponseWebDto> getCategoryProducts(@RequestHeader MultiValueMap<String, String> headers, @RequestParam Long categoryId) {
         Object organizationId = headers.get(X_ORGANIZATION_ID_HEADER.toLowerCase());
         log.info("Header is {}", organizationId);
         if(!Objects.isNull(organizationId) && !((List<?>) organizationId).isEmpty()
@@ -67,6 +73,20 @@ public class PericoController {
                     .contentType(MediaType.APPLICATION_JSON).body(response);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ProductResponseWebDto());
+        }
+    }
+    
+    @PostMapping("/priceDetails")
+    public HttpEntity<PriceDetailsResponseWebDto> calculatePriceDetails(@RequestHeader MultiValueMap<String, String> headers, @RequestBody PriceDetailsRequestWebDto priceDetailsRequestWebDto) {
+        Object organizationId = headers.get(X_ORGANIZATION_ID_HEADER.toLowerCase());
+        log.info("Header is {}", organizationId);
+        if(!Objects.isNull(organizationId) && !((List<?>) organizationId).isEmpty()
+                && ((List<?>) organizationId).get(0).toString().equalsIgnoreCase("PERICO_CLIENT")){
+                    PriceDetailsResponseWebDto response = priceDetailsService.getPriceDetails(priceDetailsRequestWebDto);
+            return ResponseEntity.status(HttpStatus.OK.value())
+                    .contentType(MediaType.APPLICATION_JSON).body(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new PriceDetailsResponseWebDto());
         }
     }
 

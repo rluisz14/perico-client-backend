@@ -7,5 +7,5 @@ import pe.perico.client.backend.controller.web.dto.ProductResponseWebDto;
  */
 public interface ProductService {
 
-    ProductResponseWebDto getProductByCategoryId(String categoryId);
+    ProductResponseWebDto getProductByCategoryId(Long categoryId);
 }

@@ -20,7 +20,8 @@ public class OrderRequestWebDto extends RepresentationModel<OrderRequestWebDto> 
 
     private Long employeeUserId;
     private Long clientUserId;
-    private Long offerId;
+    private ZonedDateTime orderDate;
     private ZonedDateTime orderDeliveredDate;
+    private String orderStatus;
     List<OrderDetailRequestWebDto> details;
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.hateoas.RepresentationModel;
+import pe.perico.client.backend.domain.PriceDetails;
 
 import java.io.Serializable;
 
@@ -13,9 +14,8 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class OrderDetailRequestWebDto extends RepresentationModel<OrderDetailRequestWebDto> implements Serializable {
+public class PriceDetailsResponseWebDto extends RepresentationModel<PriceDetailsResponseWebDto> implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Long productId;
-    private Double price;
+    private PriceDetails priceDetails;
 }

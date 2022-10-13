@@ -19,7 +19,6 @@ public class OrderMapper {
         return Order.builder()
                 .employeeUserId(orderRequestWebDto.getEmployeeUserId())
                 .clientUserId(orderRequestWebDto.getClientUserId())
-                .offerId(orderRequestWebDto.getOfferId())
                 .orderDate(ZonedDateTime.now(ZoneId.of(Constants.ZONE_AMERICA)))
                 .orderDeliveredDate(orderRequestWebDto.getOrderDeliveredDate())
                 .orderStatus(OrderStatus.IN_PROGRESS.getDescription())

@@ -14,7 +14,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     @Override
-    public ProductResponseWebDto getProductByCategoryId(String categoryId) {
+    public ProductResponseWebDto getProductByCategoryId(Long categoryId) {
         ProductResponseWebDto productResponseWebDto = new ProductResponseWebDto();
         productResponseWebDto.setProducts(productRepository.findProductByCategoryId(categoryId));
         return productResponseWebDto;
