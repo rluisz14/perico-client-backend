@@ -9,6 +9,7 @@ import pe.perico.client.backend.domain.PriceDetails;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Objects;
 
 /**
  * @author rluisz14  on 08/10/2022
@@ -16,10 +17,10 @@ import java.time.ZoneId;
 @Component
 public class OrderMapper {
 
-    public Order convertOrderRequestWebDtoToOrder(OrderRequestWebDto orderRequestWebDto, PriceDetails priceDetails) {
+    public Order convertOrderRequestWebDtoToOrder(OrderRequestWebDto orderRequestWebDto, PriceDetails priceDetails, Long employeeIdDefault, Long clientUserId) {
         return Order.builder()
-                .employeeUserId(orderRequestWebDto.getEmployeeUserId())
-                .clientUserId(orderRequestWebDto.getClientUserId())
+                .employeeUserId(Objects.nonNull(orderRequestWebDto.getEmployeeUserId()) ? orderRequestWebDto.getEmployeeUserId() : employeeIdDefault)
+                .clientUserId(Objects.nonNull(orderRequestWebDto.getClientUserId()) ? orderRequestWebDto.getClientUserId() : clientUserId)
                 .orderDate(LocalDateTime.now(ZoneId.of(Constants.ZONE_AMERICA)))
                 .orderStatus(OrderStatus.TO_BE_DELIVERED.getDescription())
                 .subtotal(priceDetails.getSubTotal())

@@ -22,43 +22,11 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     private final JdbcTemplate jdbcTemplate;
     private final CategoryRowMapper categoryRowMapper;
 
-    private static final String FIND_USER_ROLE_BY_REGISTER_NAME = "SELECT ur.registerUser, r.roleName FROM TBL_USER_ROLE as ur INNER JOIN TBL_ROLE as r ON ur.roleID = r.roleID WHERE registerUser = ?";
     private static final String FIND_ALL_CATEGORIES = "SELECT * FROM [Business].[Category] WHERE [categoryStatus] = 'A'";
-    private static final String FIND_ALL_USERS_ROLES = "SELECT * FROM TBL_USER_ROLE";
-    private static final String TBL_USER_ROLE = "TBL_USER_ROLE";
     private static final String UPDATE_USER_ROLE= "UPDATE TBL_USER_ROLE SET registerUser = ?, roleID = ? WHERE userRoleId = ?";
     private static final String DELETE_USER_ROLE = "DELETE FROM TBL_USER_ROLE WHERE userRoleId = ?";
 
-   /* public Optional<UserRole> findUserRoleByRegisterName(String registerName) {
-        UserRole userRole;
-        try {
-            userRole = jdbcTemplate.query(FIND_USER_ROLE_BY_REGISTER_NAME, new Object[]{registerName}, userRoleRowMapper).get(0);
-        }catch (IndexOutOfBoundsException e){
-            userRole = null;
-        }
-        return Optional.ofNullable(userRole);
-    }
-
-    public List<Role> findAllRoles() {
-        return jdbcTemplate.query(FIND_ALL_ROLES, new Object[]{}, roleRowMapper);
-    }
-
-    public List<UsersRoles> findAllUsersRoles() {
-        return jdbcTemplate.query(FIND_ALL_USERS_ROLES, new Object[]{}, usersRolesRowMapper);
-    }
-
-    public String registerNewUsersRoles(UsersRoles usersRoles) {
-        SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
-                .withTableName(TBL_USER_ROLE)
-                .usingColumns("registerUser", "roleID")
-                .usingGeneratedKeyColumns("userRoleId");
-        Map<String, Object> params = new HashMap<>();
-        params.put("registerUser", usersRoles.getRegisterUser());
-        params.put("roleID", usersRoles.getRoleID());
-        Number userRoleId = simpleJdbcInsert.executeAndReturnKey(params);
-        return String.valueOf(userRoleId);
-    }
-
+   /*
     public String updateUsersRoles(UsersRoles usersRoles) {
         int updated = jdbcTemplate.update(UPDATE_USER_ROLE,
                 usersRoles.getRegisterUser(),

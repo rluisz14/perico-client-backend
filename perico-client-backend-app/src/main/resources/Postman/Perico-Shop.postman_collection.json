@@ -77,7 +77,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8080/perico/v1/backend/orders/products?categoryId=1",
+							"raw": "http://localhost:8080/perico/v1/backend/orders/products?categoryId=2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -93,7 +93,7 @@
 							"query": [
 								{
 									"key": "categoryId",
-									"value": "1"
+									"value": "2"
 								}
 							]
 						}
@@ -113,7 +113,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"clientUserId\": 1,\r\n    \"employeeUserId\": 2,\r\n    \"offerId\": 1,\r\n    \"orderDeliveredDate\": \"2022-10-12T09:14:29.853-05:00\",\r\n    \"details\": [\r\n        {\r\n            \"productId\": 1,\r\n            \"price\": 23,\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"clientDocumentNumber\": \"41239874\",\r\n    \"products\": [\r\n        {\r\n            \"productId\": 1,\r\n            \"categoryId\": 1,\r\n            \"productPrice\": 23.0\r\n        },\r\n        {\r\n            \"productId\": 1,\r\n            \"categoryId\": 1,\r\n            \"productPrice\": 23.0\r\n        },\r\n        {\r\n            \"productId\": 2,\r\n            \"categoryId\": 1,\r\n            \"productPrice\": 30.0\r\n        },\r\n        {\r\n            \"productId\": 2,\r\n            \"categoryId\": 1,\r\n            \"productPrice\": 30.0\r\n        },\r\n        {\r\n            \"productId\": 3,\r\n            \"categoryId\": 1,\r\n            \"productPrice\": 30.0\r\n        },\r\n        {\r\n            \"productId\": 10,\r\n            \"categoryId\": 2,\r\n            \"productPrice\": 23.0\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -132,6 +132,43 @@
 								"v1",
 								"backend",
 								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Calcular precio",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Organization-Id",
+								"value": "PERICO_CLIENT",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"products\": [\r\n        {\r\n            \"productId\": 1,\r\n            \"categoryId\": 1,\r\n            \"productPrice\": 23.0\r\n        },\r\n        {\r\n            \"productId\": 1,\r\n            \"categoryId\": 1,\r\n            \"productPrice\": 23.0\r\n        },\r\n        {\r\n            \"productId\": 2,\r\n            \"categoryId\": 1,\r\n            \"productPrice\": 30.0\r\n        },\r\n        {\r\n            \"productId\": 2,\r\n            \"categoryId\": 1,\r\n            \"productPrice\": 30.0\r\n        },\r\n        {\r\n            \"productId\": 3,\r\n            \"categoryId\": 1,\r\n            \"productPrice\": 30.0\r\n        },\r\n        {\r\n            \"productId\": 10,\r\n            \"categoryId\": 2,\r\n            \"productPrice\": 23.0\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/perico/v1/backend/priceDetails",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"perico",
+								"v1",
+								"backend",
+								"priceDetails"
 							]
 						}
 					},

@@ -12,4 +12,5 @@ public class Constants {
 
     public static final String ACTIVE_CODE = "A";
     public static final String INACTIVE_CODE = "I";
+    public static final String EMPLOYEE_TYPE_USER = "EMPLOYEE";
 }
