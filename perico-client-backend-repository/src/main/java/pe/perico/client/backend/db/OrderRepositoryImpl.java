@@ -35,7 +35,8 @@ public class OrderRepositoryImpl implements OrderRepository {
                 .withSchemaName(SCHEMA_BUSINESS)
                 .withTableName(TBL_ORDER)
                 .usingColumns("clientUserId", "employeeUserId", "orderDate", "orderStatus",
-                        "subtotal", "igv", "deliveryCost", "total")
+                        "subtotal", "igv", "deliveryCost", "total", "phoneNumber", "email",
+                        "paymentMethod", "addressDelivery", "addressReferenceDelivery")
                 .usingGeneratedKeyColumns("orderId");
         Map<String, Object> params = new HashMap<>();
         params.put("clientUserId", order.getClientUserId());
@@ -46,6 +47,11 @@ public class OrderRepositoryImpl implements OrderRepository {
         params.put("igv", order.getIgv());
         params.put("deliveryCost", order.getDeliveryCost());
         params.put("total", order.getTotal());
+        params.put("phoneNumber", order.getPhoneNumber());
+        params.put("email", order.getEmail());
+        params.put("paymentMethod", order.getPaymentMethod());
+        params.put("addressDelivery", order.getAddressDelivery());
+        params.put("addressReferenceDelivery", order.getAddressReferenceDelivery());
         Number orderId = simpleJdbcInsert.executeAndReturnKey(params);
         return String.valueOf(orderId);
     }
