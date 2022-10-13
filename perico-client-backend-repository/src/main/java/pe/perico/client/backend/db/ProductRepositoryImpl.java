@@ -23,10 +23,12 @@ public class ProductRepositoryImpl implements ProductRepository {
     private final ProductRowMapper productRowMapper;
 
     private static final String FIND_PRODUCT_BY_CATEGORY_ID = "SELECT * FROM [Business].[Product] WHERE [categoryId] = ?";
+    private static final String FIND_PRODUCT_BY_PRODUCT_ID = "SELECT * FROM [Business].[Product] WHERE [productId] = ?";
 
     @Override
-    public Optional<Product> findProductById(String productId) {
-        return Optional.empty();
+    public Product findProductById(Long productId) {
+        List<Product> products = jdbcTemplate.query(FIND_PRODUCT_BY_PRODUCT_ID, new Object[]{productId}, productRowMapper);
+        return products.isEmpty()? null : products.get(0);
     }
 
     @Override
@@ -35,7 +37,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public List<Product> findProductByCategoryId(String categoryId) {
+    public List<Product> findProductByCategoryId(Long categoryId) {
         return jdbcTemplate.query(FIND_PRODUCT_BY_CATEGORY_ID, new Object[]{categoryId}, productRowMapper);
     }
 

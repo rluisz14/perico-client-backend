@@ -18,6 +18,7 @@ public class Person implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long personId;
+    private String personDocument;
     private String personName;
     private String personLastName;
     private String personPhoneNumber;

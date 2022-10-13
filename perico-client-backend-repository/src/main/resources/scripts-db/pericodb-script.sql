@@ -60,6 +60,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [Business].[Person](
 	[personId] [bigint] IDENTITY(1,1) NOT NULL,
+	[personDocument] [nvarchar](8) NULL,
 	[personName] [nvarchar](200) NOT NULL,
 	[personLastName] [nvarchar](200) NOT NULL,
 	[personPhoneNumber] [nvarchar](20) NULL,
@@ -97,20 +98,25 @@ ALTER TABLE [Business].[User]  WITH CHECK ADD  CONSTRAINT [FK_User_Person] FOREI
 REFERENCES [Business].[Person] ([personId])
 GO
 
-/****** Object:  Table [Business].[Offer]   Script Date: 08/10/2022 15:13:33 ******/
+/****** Object:  Table [Business].[Discount]   Script Date: 08/10/2022 15:13:33 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [Business].[Offer](
-	[offerId] [bigint] IDENTITY(1,1) NOT NULL,
-	[offerPercentage] [decimal](8,2) NOT NULL,
-	[offerDescription] [nvarchar](200) NOT NULL
- CONSTRAINT [PK_Offer] PRIMARY KEY CLUSTERED 
+CREATE TABLE [Business].[Discount](
+	[discountId] [bigint] IDENTITY(1,1) NOT NULL,
+	[categoryId] [bigint] NOT NULL,
+	[discountPercentage] [decimal](8,2) NOT NULL,
+	[discountDescription] [nvarchar](200) NOT NULL
+ CONSTRAINT [PK_Discount] PRIMARY KEY CLUSTERED 
 (
-	[offerId] ASC
+	[discountId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
+GO
+
+ALTER TABLE [Business].[Discount]  WITH CHECK ADD  CONSTRAINT [FK_Discount_Category] FOREIGN KEY([categoryId])
+REFERENCES [Business].[Category] ([categoryId])
 GO
 
 /****** Object:  Table [Business].[Order]   Script Date: 08/10/2022 15:13:33 ******/
@@ -122,10 +128,13 @@ CREATE TABLE [Business].[Order](
 	[orderId] [bigint] IDENTITY(1,1) NOT NULL,
 	[employeeUserId] [bigint] NULL,
 	[clientUserId] [bigint] NULL,
-	[offerId] [bigint] NULL,
 	[orderDate] [datetimeoffset](7) NOT NULL,
 	[orderDeliveredDate] [datetimeoffset](7) NOT NULL,
-	[orderStatus] [nvarchar](200) NOT NULL
+	[orderStatus] [nvarchar](200) NOT NULL,
+	[subtotal] [decimal](8,2) NOT NULL,
+	[igv] [decimal](8,2) NOT NULL,
+	[deliveryCost] [decimal](8,2) NOT NULL,
+	[total] [decimal](8,2) NOT NULL,
  CONSTRAINT [PK_Order] PRIMARY KEY CLUSTERED 
 (
 	[orderId] ASC
@@ -141,10 +150,6 @@ ALTER TABLE [Business].[Order]  WITH CHECK ADD  CONSTRAINT [FK_Order_Client] FOR
 REFERENCES [Business].[User] ([userId])
 GO
 
-ALTER TABLE [Business].[Order]  WITH CHECK ADD  CONSTRAINT [FK_Order_Offer] FOREIGN KEY([offerId])
-REFERENCES [Business].[Offer] ([offerId])
-GO
-
 /****** Object:  Table [Business].[OrderDetail]  Script Date: 08/10/2022 15:13:33 ******/
 SET ANSI_NULLS ON
 GO
@@ -156,7 +161,6 @@ CREATE TABLE [Business].[OrderDetail](
 	[productId] [bigint] NULL,
 	[price] [decimal](8,2) NOT NULL,
 	[quantity] int NOT NULL,
-	[subtotal] [decimal](8,2) NOT NULL,
  CONSTRAINT [PK_OrderDetail] PRIMARY KEY CLUSTERED 
 (
 	[orderDetailId] ASC

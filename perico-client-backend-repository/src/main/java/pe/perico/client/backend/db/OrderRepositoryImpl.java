@@ -40,10 +40,13 @@ public class OrderRepositoryImpl implements OrderRepository {
         Map<String, Object> params = new HashMap<>();
         params.put("clientUserId", order.getClientUserId());
         params.put("employeeUserId", order.getEmployeeUserId());
-        params.put("offerId", order.getOfferId());
         params.put("orderDate", order.getOrderDeliveredDate());
         params.put("orderDeliveredDate", order.getOrderDeliveredDate());
         params.put("orderStatus", order.getOrderStatus());
+        params.put("subtotal", order.getSubtotal());
+        params.put("igv", order.getIgv());
+        params.put("deliveryCost", order.getDeliveryCost());
+        params.put("total", order.getTotal());
         Number orderId = simpleJdbcInsert.executeAndReturnKey(params);
         return String.valueOf(orderId);
     }

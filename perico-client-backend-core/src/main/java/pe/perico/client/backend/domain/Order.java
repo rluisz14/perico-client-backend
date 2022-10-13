@@ -25,4 +25,8 @@ public class Order implements Serializable {
     private ZonedDateTime orderDate;
     private ZonedDateTime orderDeliveredDate;
     private String orderStatus;
+    private Double subtotal;
+    private Double igv;
+    private Double deliveryCost;
+    private Double total;
 }
