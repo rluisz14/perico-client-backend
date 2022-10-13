@@ -13,9 +13,11 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class OrderDetailRequestWebDto extends RepresentationModel<OrderDetailRequestWebDto> implements Serializable {
+public class ProductOrderRequestWebDto extends RepresentationModel<ProductOrderRequestWebDto> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long productId;
-    private Double price;
+    private Long categoryId;
+    private Double productPrice;
+    private Integer quantity;
 }

@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 /**
  * @author rluisz14 on 08/10/2022
@@ -25,7 +25,7 @@ public class Product implements Serializable {
     private Double productPrice;
     private Double productCost;
     private Integer productStock;
-    private ZonedDateTime productRegisterDate;
+    private LocalDateTime productRegisterDate;
     private String productImageUrl;
     private String productStatus;
 }

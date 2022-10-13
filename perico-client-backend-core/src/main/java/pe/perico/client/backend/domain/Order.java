@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 /**
  * @author rluisz14 on 08/10/2022
@@ -19,11 +19,10 @@ public class Order implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long orderId;
-    private Long employeeUserId;
     private Long clientUserId;
-    private Long offerId;
-    private ZonedDateTime orderDate;
-    private ZonedDateTime orderDeliveredDate;
+    private Long employeeUserId;
+    private LocalDateTime orderDate;
+    private LocalDateTime orderDeliveredDate;
     private String orderStatus;
     private Double subtotal;
     private Double igv;

@@ -3,8 +3,6 @@ package pe.perico.client.backend.controller.web.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pe.perico.client.backend.domain.Product;
-
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
@@ -19,5 +17,5 @@ import java.util.List;
 public class PriceDetailsRequestWebDto extends RepresentationModel<PriceDetailsRequestWebDto> implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private List<Product> products;
+    private List<ProductOrderRequestWebDto> products;
 }

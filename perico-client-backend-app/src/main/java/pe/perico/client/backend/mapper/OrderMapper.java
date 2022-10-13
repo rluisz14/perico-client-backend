@@ -5,9 +5,10 @@ import pe.perico.client.backend.constants.Constants;
 import pe.perico.client.backend.controller.web.dto.OrderRequestWebDto;
 import pe.perico.client.backend.domain.Order;
 import pe.perico.client.backend.domain.OrderStatus;
+import pe.perico.client.backend.domain.PriceDetails;
 
+import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
 
 /**
  * @author rluisz14  on 08/10/2022
@@ -15,13 +16,16 @@ import java.time.ZonedDateTime;
 @Component
 public class OrderMapper {
 
-    public Order convertOrderRequestWebDtoToOrder(OrderRequestWebDto orderRequestWebDto){
+    public Order convertOrderRequestWebDtoToOrder(OrderRequestWebDto orderRequestWebDto, PriceDetails priceDetails) {
         return Order.builder()
                 .employeeUserId(orderRequestWebDto.getEmployeeUserId())
                 .clientUserId(orderRequestWebDto.getClientUserId())
-                .orderDate(ZonedDateTime.now(ZoneId.of(Constants.ZONE_AMERICA)))
-                .orderDeliveredDate(orderRequestWebDto.getOrderDeliveredDate())
-                .orderStatus(OrderStatus.IN_PROGRESS.getDescription())
+                .orderDate(LocalDateTime.now(ZoneId.of(Constants.ZONE_AMERICA)))
+                .orderStatus(OrderStatus.TO_BE_DELIVERED.getDescription())
+                .subtotal(priceDetails.getSubTotal())
+                .igv(priceDetails.getIgv())
+                .deliveryCost(priceDetails.getDeliveryCost())
+                .total(priceDetails.getTotal())
                 .build();
     }
 }

@@ -39,7 +39,7 @@ CREATE TABLE [Business].[Product](
 	[productPrice] [decimal](8,2) NOT NULL,
 	[productCost] [decimal](8,2) NOT NULL,
 	[productStock] int NOT NULL,
-	[productRegisterDate] [datetimeoffset](7) NOT NULL,
+	[productRegisterDate] [datetime] NOT NULL,
 	[productImageUrl] [nvarchar](200) NOT NULL,
 	[productStatus] [nchar](1) NOT NULL
  CONSTRAINT [PK_Product] PRIMARY KEY CLUSTERED 
@@ -85,7 +85,7 @@ CREATE TABLE [Business].[User](
 	[userName] [nvarchar](200) NOT NULL,
 	[userPassword] [nvarchar](200) NOT NULL,
 	[userType] [nvarchar](200) NOT NULL,
-	[userCreationDate] [datetimeoffset](7) NOT NULL,
+	[userCreationDate] [datetime] NOT NULL,
 	[userStatus] [nchar](1) NOT NULL,
  CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED 
 (
@@ -128,8 +128,8 @@ CREATE TABLE [Business].[Order](
 	[orderId] [bigint] IDENTITY(1,1) NOT NULL,
 	[employeeUserId] [bigint] NULL,
 	[clientUserId] [bigint] NULL,
-	[orderDate] [datetimeoffset](7) NOT NULL,
-	[orderDeliveredDate] [datetimeoffset](7) NOT NULL,
+	[orderDate] [datetime] NOT NULL,
+	[orderDeliveredDate] [datetime] NULL,
 	[orderStatus] [nvarchar](200) NOT NULL,
 	[subtotal] [decimal](8,2) NOT NULL,
 	[igv] [decimal](8,2) NOT NULL,

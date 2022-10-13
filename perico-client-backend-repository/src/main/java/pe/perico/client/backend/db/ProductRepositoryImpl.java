@@ -8,7 +8,6 @@ import pe.perico.client.backend.db.rowmapper.ProductRowMapper;
 import pe.perico.client.backend.domain.Product;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author rluisz14  on 08/10/2022
@@ -22,8 +21,8 @@ public class ProductRepositoryImpl implements ProductRepository {
     private final JdbcTemplate jdbcTemplate;
     private final ProductRowMapper productRowMapper;
 
-    private static final String FIND_PRODUCT_BY_CATEGORY_ID = "SELECT * FROM [Business].[Product] WHERE [categoryId] = ?";
-    private static final String FIND_PRODUCT_BY_PRODUCT_ID = "SELECT * FROM [Business].[Product] WHERE [productId] = ?";
+    private static final String FIND_PRODUCT_BY_CATEGORY_ID = "SELECT * FROM [Business].[Product] WHERE [categoryId] = ? AND [productStatus] = 'A'";
+    private static final String FIND_PRODUCT_BY_PRODUCT_ID = "SELECT * FROM [Business].[Product] WHERE [productId] = ? AND [productStatus] = 'A'";
 
     @Override
     public Product findProductById(Long productId) {

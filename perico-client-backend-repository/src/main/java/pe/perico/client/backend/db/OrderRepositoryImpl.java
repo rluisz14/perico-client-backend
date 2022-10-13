@@ -22,8 +22,8 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    private static final String TBL_ORDER = "Order";
-    private static final String SCHEMA_BUSINESS = "Business";
+    private static final String TBL_ORDER = "[Order]";
+    private static final String SCHEMA_BUSINESS = "[Business]";
     @Override
     public List<Order> findAllOrders() {
         return null;
@@ -34,14 +34,13 @@ public class OrderRepositoryImpl implements OrderRepository {
         SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
                 .withSchemaName(SCHEMA_BUSINESS)
                 .withTableName(TBL_ORDER)
-                .usingColumns("clientUserId", "employeeUserId", "offerId", "orderDate",
-                        "orderDeliveredDate", "orderStatus")
+                .usingColumns("clientUserId", "employeeUserId", "orderDate", "orderStatus",
+                        "subtotal", "igv", "deliveryCost", "total")
                 .usingGeneratedKeyColumns("orderId");
         Map<String, Object> params = new HashMap<>();
         params.put("clientUserId", order.getClientUserId());
         params.put("employeeUserId", order.getEmployeeUserId());
-        params.put("orderDate", order.getOrderDeliveredDate());
-        params.put("orderDeliveredDate", order.getOrderDeliveredDate());
+        params.put("orderDate", order.getOrderDate());
         params.put("orderStatus", order.getOrderStatus());
         params.put("subtotal", order.getSubtotal());
         params.put("igv", order.getIgv());

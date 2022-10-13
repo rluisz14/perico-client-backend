@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
-import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -20,8 +19,5 @@ public class OrderRequestWebDto extends RepresentationModel<OrderRequestWebDto> 
 
     private Long employeeUserId;
     private Long clientUserId;
-    private ZonedDateTime orderDate;
-    private ZonedDateTime orderDeliveredDate;
-    private String orderStatus;
-    List<OrderDetailRequestWebDto> details;
+    List<ProductOrderRequestWebDto> products;
 }

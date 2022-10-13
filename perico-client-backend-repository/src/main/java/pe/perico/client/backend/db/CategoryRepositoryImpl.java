@@ -23,7 +23,7 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     private final CategoryRowMapper categoryRowMapper;
 
     private static final String FIND_USER_ROLE_BY_REGISTER_NAME = "SELECT ur.registerUser, r.roleName FROM TBL_USER_ROLE as ur INNER JOIN TBL_ROLE as r ON ur.roleID = r.roleID WHERE registerUser = ?";
-    private static final String FIND_ALL_CATEGORIES = "SELECT * FROM [Business].[Category]";
+    private static final String FIND_ALL_CATEGORIES = "SELECT * FROM [Business].[Category] WHERE [categoryStatus] = 'A'";
     private static final String FIND_ALL_USERS_ROLES = "SELECT * FROM TBL_USER_ROLE";
     private static final String TBL_USER_ROLE = "TBL_USER_ROLE";
     private static final String UPDATE_USER_ROLE= "UPDATE TBL_USER_ROLE SET registerUser = ?, roleID = ? WHERE userRoleId = ?";

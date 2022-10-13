@@ -2,19 +2,18 @@ package pe.perico.client.backend.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import pe.perico.client.backend.controller.web.dto.PriceDetailsRequestWebDto;
+import pe.perico.client.backend.controller.web.dto.PriceDetailsResponseWebDto;
+import pe.perico.client.backend.controller.web.dto.ProductOrderRequestWebDto;
+import pe.perico.client.backend.db.DiscountRepository;
+import pe.perico.client.backend.domain.Discount;
+import pe.perico.client.backend.domain.PriceDetails;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
-import org.springframework.stereotype.Service;
-import pe.perico.client.backend.controller.web.dto.PriceDetailsRequestWebDto;
-import pe.perico.client.backend.controller.web.dto.PriceDetailsResponseWebDto;
-import pe.perico.client.backend.db.DiscountRepository;
-import pe.perico.client.backend.domain.Discount;
-import pe.perico.client.backend.domain.PriceDetails;
-import pe.perico.client.backend.domain.Product;
 
 @Slf4j
 @AllArgsConstructor
@@ -31,7 +30,7 @@ public class PriceDetailsServiceImpl implements PriceDetailsService {
         }
 
         List<Discount> discounts = new ArrayList<>();
-        for (Product product : requestWebDto.getProducts()) {
+        for (ProductOrderRequestWebDto product : requestWebDto.getProducts()) {
             Discount discount = discountRepository.findDiscountByCategory(product.getCategoryId());
             if (discount != null) {
                 discounts.add(discount);

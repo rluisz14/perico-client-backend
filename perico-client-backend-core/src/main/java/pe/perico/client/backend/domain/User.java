@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 /**
  * @author rluisz14 on 08/10/2022
@@ -23,6 +23,6 @@ public class User implements Serializable {
     private String userName;
     private String userPassword;
     private String userType;
-    private ZonedDateTime userCreationDate;
+    private LocalDateTime userCreationDate;
     private String userStatus;
 }

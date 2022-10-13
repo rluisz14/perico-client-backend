@@ -2,14 +2,15 @@ package pe.perico.client.backend.db.rowmapper;
 
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
+import pe.perico.client.backend.constants.Constants;
 import pe.perico.client.backend.domain.Product;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
 
 /**
  * @author rluisz14  on 08/10/2022
@@ -32,14 +33,14 @@ public class ProductRowMapper implements RowMapper<Product> {
                 .build();
     }
 
-    public static ZonedDateTime fromTimestamp(ResultSet rs, String column)
+    public static LocalDateTime fromTimestamp(ResultSet rs, String column)
             throws SQLException {
         Timestamp timestamp = rs.getTimestamp(column);
         return getDateTime(timestamp);
     }
 
-    public static ZonedDateTime getDateTime(Timestamp timestamp) {
-        return timestamp != null ? ZonedDateTime.ofInstant(
-                Instant.ofEpochMilli(timestamp.getTime()), ZoneId.of("America/Bogota")) : null;
+    public static LocalDateTime getDateTime(Timestamp timestamp) {
+        return timestamp != null ? LocalDateTime.ofInstant(
+                Instant.ofEpochMilli(timestamp.getTime()), ZoneId.of(Constants.ZONE_AMERICA)) : null;
     }
 }

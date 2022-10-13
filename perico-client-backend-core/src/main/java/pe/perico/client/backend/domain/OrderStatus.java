@@ -5,8 +5,8 @@ package pe.perico.client.backend.domain;
  */
 public enum OrderStatus {
 
-    IN_PROGRESS("EN_CURSO"),
-    COMPLETE("COMPLETADA");
+    TO_BE_DELIVERED("POR_ENTREGAR"),
+    DELIVERED("ENTREGADA");
 
     private String description;
 
