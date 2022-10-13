@@ -135,6 +135,11 @@ CREATE TABLE [Business].[Order](
 	[igv] [decimal](8,2) NOT NULL,
 	[deliveryCost] [decimal](8,2) NOT NULL,
 	[total] [decimal](8,2) NOT NULL,
+	[phoneNumber] [nvarchar](20) NULL,
+	[email] [nvarchar](200) NULL,
+	[paymentMethod] [nvarchar](200) NOT NULL,
+	[addressDelivery] [nvarchar](200) NOT NULL,
+	[addressReferenceDelivery] [nvarchar](200) NULL,
  CONSTRAINT [PK_Order] PRIMARY KEY CLUSTERED 
 (
 	[orderId] ASC

@@ -1,0 +1,286 @@
+openapi: 3.0.3
+info:
+  title: Perico Client Backend
+  description: Web de pedidos en línea
+  contact:
+    email: rluisz14@gmail.com
+  version: 1.0.11
+externalDocs:
+  description: Github project
+  url: https://github.com/rluisz14/perico-client-backend
+servers:
+  - url: http://localhost:8080/perico/v1/backend
+tags:
+  - name: Order
+    description: API para registrar pedidos
+paths:
+  /orders/categories:
+    get:
+      tags:
+        - Order
+      summary: Lista las categorías
+      description: Lista las categorías
+      operationId: getCategories
+      parameters:
+        - name: X-Organization-Id
+          in: header
+          description: Identificador de aplicación
+          required: true
+          schema:
+            type: string
+            example: PERICO_CLIENT
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
+  /orders/products:
+    get:
+      tags:
+        - Order
+      summary: Listar productos por id de categoría
+      description: Listar productos por id de categoría
+      operationId: getCategoryProducts
+      parameters:
+        - name: X-Organization-Id
+          in: header
+          description: Identificador de aplicación
+          required: true
+          schema:
+            type: string
+            example: PERICO_CLIENT
+        - name: categoryId
+          in: query
+          description: Código de categoría
+          required: true
+          schema:
+            type: integer
+            format: int64
+            example: 10
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductResponse'
+  /priceDetails:
+    post:
+      tags:
+        - Order
+      summary: Calcula el detalle de precio
+      description: Calcula el detalle de precio
+      operationId: calculatePriceDetails
+      requestBody:
+        description: Calcula el detalle de precio
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PriceDetailsRequest'
+        required: true
+      parameters:
+        - name: X-Organization-Id
+          in: header
+          description: Identificador de aplicación
+          required: true
+          schema:
+            type: string
+            example: PERICO_CLIENT
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceDetailsResponse'     
+  /orders:
+    post:
+      tags:
+        - Order
+      summary: Registra una nueva orden de compra
+      description: Registra una nueva orden de compra
+      operationId: registerOrder
+      requestBody:
+        description: Registra una nueva orden de compra
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest'
+        required: true
+      parameters:
+        - name: X-Organization-Id
+          in: header
+          description: Identificador de aplicación
+          required: true
+          schema:
+            type: string
+            example: PERICO_CLIENT
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+                
+components:
+  schemas:
+    PriceDetailsRequest:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductOrder'
+    PriceDetailsResponse:
+      type: object
+      properties:
+        priceDetails:
+          type: object
+          properties:
+            subTotal:
+              type: number
+              example: 159.0
+            igv:
+              type: number
+              example: 28.62
+            discount:
+              type: number
+              example: 15.9
+            deliveryCost:
+              type: number
+              example: 5
+            total:
+              type: number
+              example: 176.72
+    OrderRequest:
+      type: object
+      properties:
+        employeeUserId:
+          type: integer
+          format: int64
+          example: 198
+        clientUserId:
+          type: integer
+          format: int32
+          example: 7
+        clientDocumentNumber:
+          type: string
+          example: 41239874
+        phoneNumber:
+          type: string
+          example: 992185444
+        email:
+          type: string
+          example: cgonzales@gmail.com
+        paymentMethod:
+          type: string
+          example: YAPE
+        addressDelivery:
+          type: string
+          example: Av Las Rosas 152
+        addressReferenceDelivery:
+          type: string
+          example: Cerca al parque los girasoles
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductOrder'
+    ProductOrder:
+      type: object
+      properties:
+        productId:
+          type: integer
+          format: int64
+          example: 10
+        categoryId:
+          type: integer
+          format: int64
+          example: 1
+        productPrice:
+          type: number
+          example: 20
+    OrderResponse:
+      type: object
+      properties:
+        orderId:
+          type: string
+          example: 100000
+    CategoryResponse:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+    Category:
+      type: object
+      properties:
+        categoryId:
+          type: integer
+          format: int64
+          example: 1
+        categoryName:
+          type: string
+          example: Sandwiches
+        categoryDescription:
+          type: string
+          example: Disfruta de varios las diferentes versiones de tu sandwich Favorito
+        categoryPriceRange:
+          type: string
+          example: 20 - 30
+        categoryImageUrl:
+          type: string
+          example: >-
+            https://i.pinimg.com/originals/71/7d/4b/717d4b7f0ae876056e2d8d2ca485e904.jpg
+        categoryStatus:
+          type: string
+          example: A
+    ProductResponse:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+    Product:
+      type: object
+      properties:
+        productId:
+          type: integer
+          format: int64
+          example: 10
+        categoryId:
+          type: integer
+          format: int64
+          example: 1
+        productName:
+          type: string
+          example: Invita pe
+        productDescription:
+          type: string
+          example: Disfruta de la mejor combinación de pan y papas
+        productPrice:
+          type: number
+          example: 20
+        productCost:
+          type: number
+          example: 20
+        productStock:
+          type: integer
+          format: int32
+          example: 1
+        productRegisterDate:
+          type: string
+          format: date-time
+        productImageUrl:
+          type: string
+          example: >-
+            https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/190322-ham-sandwich-horizontal-1553721016.png
+        productStatus:
+          type: string
+          example: A

@@ -28,4 +28,9 @@ public class Order implements Serializable {
     private Double igv;
     private Double deliveryCost;
     private Double total;
+    private String phoneNumber;
+    private String email;
+    private String paymentMethod;
+    private String addressDelivery;
+    private String addressReferenceDelivery;
 }

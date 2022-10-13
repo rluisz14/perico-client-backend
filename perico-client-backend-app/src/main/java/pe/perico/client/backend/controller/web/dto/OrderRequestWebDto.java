@@ -20,5 +20,10 @@ public class OrderRequestWebDto extends RepresentationModel<OrderRequestWebDto> 
     private Long employeeUserId;
     private Long clientUserId;
     private String clientDocumentNumber;
+    private String phoneNumber;
+    private String email;
+    private String paymentMethod;
+    private String addressDelivery;
+    private String addressReferenceDelivery;
     List<ProductOrderRequestWebDto> products;
 }

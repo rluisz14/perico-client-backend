@@ -27,6 +27,11 @@ public class OrderMapper {
                 .igv(priceDetails.getIgv())
                 .deliveryCost(priceDetails.getDeliveryCost())
                 .total(priceDetails.getTotal())
+                .phoneNumber(orderRequestWebDto.getPhoneNumber())
+                .email(orderRequestWebDto.getEmail())
+                .paymentMethod(orderRequestWebDto.getPaymentMethod())
+                .addressDelivery(orderRequestWebDto.getAddressDelivery())
+                .addressReferenceDelivery(orderRequestWebDto.getAddressReferenceDelivery())
                 .build();
     }
 }
