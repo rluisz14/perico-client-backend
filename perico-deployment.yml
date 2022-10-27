@@ -2,6 +2,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: perico-client-backend-app-service
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+    service.beta.kubernetes.io/azure-load-balancer-internal-subnet: "api-ingress-subnet"
   labels:
     app: perico-client-backend-app
 spec:
@@ -13,59 +16,60 @@ spec:
     - protocol: TCP
       port: 8080
       name: http
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: perico-client-backend-app
-spec:
-  strategy:
-    type: Recreate
-  selector:
-    matchLabels:
-      app: perico-client-backend-app
-  template:
-    metadata:
-      labels:
-        app: perico-client-backend-app
-    spec:
-      containers:
-        - image: integrator.azurecr.io/perico-client-backend-app
-          name: perico-client-backend-app
-          imagePullPolicy: Always
-          resources:
-            requests:
-              memory: "128Mi"
-            limits:
-              memory: "512Mi"
-          env:
-            - name: version
-              value: "0.0.1"
-            - name: name
-              value: "perico-client-backend-app"
-            - name: JAVA_OPTIONS
-              value: "-Xms64m -Xmx128m"
-          ports:
-            - containerPort: 8080
-              name: http
-              protocol: TCP
-          livenessProbe:
-            tcpSocket:
-              port: 8080
-            initialDelaySeconds: 60
-            periodSeconds: 30
-      imagePullSecrets:
-        - name: azure-registry-secret
----
-apiVersion: autoscaling/v1
-kind: HorizontalPodAutoscaler
-metadata:
-  name: ibk-perico-client-backend-app-hpa
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1beta1
-    kind: Deployment
-    name: perico-client-backend-app
-  minReplicas: 1
-  maxReplicas: 2
-  targetCPUUtilizationPercentage: 10
+      targetPort: 8080
+#---
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: perico-client-backend-app
+#spec:
+#  strategy:
+#    type: Recreate
+#  selector:
+#    matchLabels:
+#      app: perico-client-backend-app
+#  template:
+#    metadata:
+#      labels:
+#        app: perico-client-backend-app
+#    spec:
+#      containers:
+#        - image: integrator.azurecr.io/perico-client-backend-app
+#          name: perico-client-backend-app
+#          imagePullPolicy: Always
+#          resources:
+#            requests:
+#              memory: "128Mi"
+#            limits:
+#              memory: "512Mi"
+#          env:
+#            - name: version
+#              value: "0.0.1"
+#            - name: name
+#              value: "perico-client-backend-app"
+#            - name: JAVA_OPTIONS
+#              value: "-Xms64m -Xmx128m"
+#          ports:
+#            - containerPort: 8080
+#              name: http
+#              protocol: TCP
+#          livenessProbe:
+#            tcpSocket:
+#              port: 8080
+#            initialDelaySeconds: 60
+#            periodSeconds: 30
+#      imagePullSecrets:
+#        - name: azure-registry-secret
+#---
+#apiVersion: autoscaling/v1
+#kind: HorizontalPodAutoscaler
+#metadata:
+#  name: ibk-perico-client-backend-app-hpa
+#spec:
+#  scaleTargetRef:
+#    apiVersion: apps/v1beta1
+#    kind: Deployment
+#    name: perico-client-backend-app
+#  minReplicas: 1
+#  maxReplicas: 2
+#  targetCPUUtilizationPercentage: 10
