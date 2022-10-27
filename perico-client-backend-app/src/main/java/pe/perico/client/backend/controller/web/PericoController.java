@@ -43,8 +43,7 @@ public class PericoController {
     }
 
     @GetMapping("/healthCheck")
-    public HttpEntity<Void> healthCheck(
-            @RequestHeader(name = X_ORGANIZATION_ID_HEADER) String organizationId) {
+    public HttpEntity<Void> healthCheck() {
         return ResponseEntity.status(HttpStatus.OK.value()).contentType(MediaType.APPLICATION_JSON).build();
     }
 

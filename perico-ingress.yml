@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: perico-client-backend-app-ingress
+  annotations:
+    appgw.ingress.kubernetes.io/backend-path-prefix: /perico/v1/backend/
+    appgw.ingress.kubernetes.io/health-probe-path: /perico/v1/backend/healthCheck
+    kubernetes.io/ingress.class: azure/application-gateway
+spec:
+  rules:
+  - http: 
+      paths:
+      - backend:
+          service: 
+            name: perico-client-backend-app-service
+            port: 
+              number: 8080
+        path: /*
+        pathType: ImplementationSpecific
