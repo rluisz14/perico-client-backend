@@ -16,7 +16,7 @@ spring:
     properties.hibernate.dialect: org.hibernate.dialect.SQLServer2014Dialect
     open-in-view: false
   datasource:
-    url: jdbc:sqlserver://10.35.96.3;database=pericodb;user=sqlserver@integrador-utp;password={your_password_here};loginTimeout=30;
+    url: jdbc:sqlserver://104.198.247.238;database=pericodb;user=sqlserver@integrador-utp;password={your_password_here};loginTimeout=30;
     username: sqlserver
     password: sudopassword11!
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -26,3 +26,13 @@ management:
     web:
       exposure:
         include: health, perico-client-features
+
+opentracing:
+  jaeger:
+    enabled: true
+    enable-b3-propagation: true
+    log-spans: true
+    const-sampler:
+      decision: true
+    http-sender:
+      url: http://localhost:14268/api/traces

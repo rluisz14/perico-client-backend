@@ -9,5 +9,5 @@ WORKDIR /usr/src/app/perico-client-backend/perico-client-backend-app/
   # Install app dependencies
 COPY perico-client-backend-app/target/perico-client-backend-app-0.0.1-SNAPSHOT.jar /usr/src/app/perico-client-backend/perico-client-backend-app/perico-client-backend-app-0.0.1-SNAPSHOT.jar
 COPY perico-client-backend-app/application.yml /usr/src/app/perico-client-backend/perico-client-backend-app/application.yml
-EXPOSE 8080
+EXPOSE 808
 CMD exec java -Duser.timezone=America/Lima -XX:+PrintFlagsFinal $JAVA_OPTIONS -jar perico-client-backend-app-0.0.1-SNAPSHOT.jar
