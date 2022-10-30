@@ -2,8 +2,6 @@ apiVersion: v1
 kind: Service
 metadata:
   name: perico-client-backend-app-service
-  annotations:
-    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
   labels:
     app: perico-client-backend-app
 spec:
@@ -15,6 +13,7 @@ spec:
     - protocol: TCP
       port: 8080
       name: http
+      targetPort: 8080
 ---
 apiVersion: apps/v1
 kind: Deployment
