@@ -16,7 +16,7 @@ spring:
     properties.hibernate.dialect: org.hibernate.dialect.SQLServer2014Dialect
     open-in-view: false
   datasource:
-    url: jdbc:sqlserver://10.35.96.3;database=pericodb;user=sqlserver@integrador-utp;password={your_password_here};loginTimeout=30;
+    url: jdbc:sqlserver://integrator-utp.database.windows.net:1433;database=pericodb;user=sqlserver@integrator-utp;password={your_password_here};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
     username: sqlserver
     password: sudopassword11!
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver

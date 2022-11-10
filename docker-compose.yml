@@ -1,9 +1,9 @@
 version: '3'
 services:
-  mdp-xpay-demo:
-    image: mdp-xpay-tokenpay
+  perico-client-demo:
+    image: perico-client-backend
     build:
-      context: mdp-xpay-tokenpay-app/
+      context: perico-client-backend-app/
       dockerfile: ./src/main/docker/Dockerfile
     ports:
       - 8080:8080
@@ -18,9 +18,9 @@ services:
     depends_on:
       - redis
   mocks:
-    image: mdp-xpay-tokenpay-mocks:latest
+    image: perico-client-backend-mocks:latest
     build:
-      context: mdp-xpay-tokenpay-mocks/
+      context: perico-client-backend-mocks/
       dockerfile: ./src/main/docker/Dockerfile
     ports:
       - 8081:8081

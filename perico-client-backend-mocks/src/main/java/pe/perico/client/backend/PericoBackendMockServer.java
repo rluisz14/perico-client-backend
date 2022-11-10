@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @author rzenteno on 21/05/2020
- * @project mdp-xpay-tokenpay
+ * @project perico-client-backend
  */
 @SpringBootApplication(scanBasePackages = "pe.perico")
 public class PericoBackendMockServer {
