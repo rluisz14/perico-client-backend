@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @author rluisz14 on 08/10/2022
@@ -18,6 +19,8 @@ public class Person implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long personId;
+    private String userType;
+    private String userStatus;
     private String personDocument;
     private String personName;
     private String personLastName;

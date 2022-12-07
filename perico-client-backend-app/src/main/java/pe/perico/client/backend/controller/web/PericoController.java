@@ -1,19 +1,15 @@
 package pe.perico.client.backend.controller.web;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-import pe.perico.client.backend.controller.web.dto.CategoryResponseWebDto;
-import pe.perico.client.backend.controller.web.dto.OrderRequestWebDto;
-import pe.perico.client.backend.controller.web.dto.OrderResponseWebDto;
-import pe.perico.client.backend.controller.web.dto.PriceDetailsRequestWebDto;
-import pe.perico.client.backend.controller.web.dto.PriceDetailsResponseWebDto;
-import pe.perico.client.backend.controller.web.dto.ProductResponseWebDto;
-import pe.perico.client.backend.service.OrderService;
-import pe.perico.client.backend.service.PriceDetailsService;
-import pe.perico.client.backend.service.ProductService;
-import pe.perico.client.backend.service.CategoryService;
+import pe.perico.client.backend.constants.Constants;
+import pe.perico.client.backend.controller.web.dto.*;
+import pe.perico.client.backend.service.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -30,16 +26,22 @@ public class PericoController {
     private final ProductService productService;
     private final OrderService orderService;
     private final PriceDetailsService priceDetailsService;
+    private final PersonService personService;
+    private final UserService userService;
 
     public PericoController(CategoryService categoryService,
                             ProductService productService,
                             OrderService orderService,
-                            PriceDetailsService priceDetailsService) {
+                            PriceDetailsService priceDetailsService,
+                            PersonService personService,
+                            UserService userService) {
         super();
         this.categoryService = categoryService;
         this.productService = productService;
         this.orderService = orderService;
         this.priceDetailsService = priceDetailsService;
+        this.personService = personService;
+        this.userService = userService;
     }
 
     @GetMapping("/healthCheck")
@@ -49,10 +51,7 @@ public class PericoController {
 
     @GetMapping("/orders/categories")
     public HttpEntity<CategoryResponseWebDto> getCategories(@RequestHeader MultiValueMap<String, String> headers) {
-        Object organizationId = headers.get(X_ORGANIZATION_ID_HEADER.toLowerCase());
-        log.info("Header is {}", organizationId);
-        if(!Objects.isNull(organizationId) && !((List<?>) organizationId).isEmpty()
-                && ((List<?>) organizationId).get(0).toString().equalsIgnoreCase("PERICO_CLIENT")){
+        if (validateHeader(headers)) {
             CategoryResponseWebDto response = categoryService.getCategories();
             return ResponseEntity.status(HttpStatus.OK.value())
                     .contentType(MediaType.APPLICATION_JSON).body(response);
@@ -63,10 +62,7 @@ public class PericoController {
 
     @GetMapping("/orders/products")
     public HttpEntity<ProductResponseWebDto> getCategoryProducts(@RequestHeader MultiValueMap<String, String> headers, @RequestParam Long categoryId) {
-        Object organizationId = headers.get(X_ORGANIZATION_ID_HEADER.toLowerCase());
-        log.info("Header is {}", organizationId);
-        if(!Objects.isNull(organizationId) && !((List<?>) organizationId).isEmpty()
-                && ((List<?>) organizationId).get(0).toString().equalsIgnoreCase("PERICO_CLIENT")){
+        if (validateHeader(headers)) {
             ProductResponseWebDto response = productService.getProductByCategoryId(categoryId);
             return ResponseEntity.status(HttpStatus.OK.value())
                     .contentType(MediaType.APPLICATION_JSON).body(response);
@@ -77,10 +73,7 @@ public class PericoController {
     
     @PostMapping("/priceDetails")
     public HttpEntity<PriceDetailsResponseWebDto> calculatePriceDetails(@RequestHeader MultiValueMap<String, String> headers, @RequestBody PriceDetailsRequestWebDto priceDetailsRequestWebDto) {
-        Object organizationId = headers.get(X_ORGANIZATION_ID_HEADER.toLowerCase());
-        log.info("Header is {}", organizationId);
-        if(!Objects.isNull(organizationId) && !((List<?>) organizationId).isEmpty()
-                && ((List<?>) organizationId).get(0).toString().equalsIgnoreCase("PERICO_CLIENT")){
+        if (validateHeader(headers)) {
                     PriceDetailsResponseWebDto response = priceDetailsService.getPriceDetails(priceDetailsRequestWebDto);
             return ResponseEntity.status(HttpStatus.OK.value())
                     .contentType(MediaType.APPLICATION_JSON).body(response);
@@ -91,16 +84,42 @@ public class PericoController {
 
     @PostMapping("/orders")
     public HttpEntity<OrderResponseWebDto> registerOrder(@RequestHeader MultiValueMap<String, String> headers, @RequestBody OrderRequestWebDto orderRequestWebDto) {
-        Object organizationId = headers.get(X_ORGANIZATION_ID_HEADER.toLowerCase());
-        log.info("Header is {}", organizationId);
-        if(!Objects.isNull(organizationId) && !((List<?>) organizationId).isEmpty()
-                && ((List<?>) organizationId).get(0).toString().equalsIgnoreCase("PERICO_CLIENT")){
+        if (validateHeader(headers)) {
             OrderResponseWebDto response = orderService.registerOrder(orderRequestWebDto);
             return ResponseEntity.status(HttpStatus.OK.value())
                     .contentType(MediaType.APPLICATION_JSON).body(response);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new OrderResponseWebDto());
         }
+    }
+
+    @PostMapping("/users/login")
+    public HttpEntity<UserResponseWebDto> loginPerson(@RequestHeader MultiValueMap<String, String> headers, @RequestBody PersonRequestWebDto personRequestWebDto) {
+        if (validateHeader(headers)) {
+            UserResponseWebDto response = userService.login(personRequestWebDto.getUserName(), personRequestWebDto.getUserPassword());
+            return ResponseEntity.status(HttpStatus.OK.value())
+                    .contentType(MediaType.APPLICATION_JSON).body(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new UserResponseWebDto());
+        }
+    }
+
+    @PostMapping("/persons")
+    public HttpEntity<PersonResponseWebDto> savePerson(@RequestHeader MultiValueMap<String, String> headers, @RequestBody PersonRequestWebDto personRequestWebDto) {
+        if (validateHeader(headers)) {
+            PersonResponseWebDto response = personService.savePerson(personRequestWebDto);
+            return ResponseEntity.status(HttpStatus.OK.value())
+                    .contentType(MediaType.APPLICATION_JSON).body(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new PersonResponseWebDto());
+        }
+    }
+
+    private boolean validateHeader(MultiValueMap<String, String> headers) {
+        Object organizationId = headers.get(X_ORGANIZATION_ID_HEADER.toLowerCase());
+        log.info("Header is {}", organizationId);
+        return !Objects.isNull(organizationId) && !((List<?>) organizationId).isEmpty()
+                && ((List<?>) organizationId).get(0).toString().equalsIgnoreCase(Constants.PERICO_HEADER);
     }
 
 }

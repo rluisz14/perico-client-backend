@@ -11,4 +11,6 @@ public interface UserRepository {
 
     Optional<User> findUserByType(String userType);
     Optional<User> findUserByPersonDocument(String personDocument);
+    Optional<User> findUserByUserNameAndPassword(String username, String password);
+    String saveUser(User user);
 }
