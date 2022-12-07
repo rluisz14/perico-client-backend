@@ -77,12 +77,262 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8080/perico/v1/backend/orders/products?categoryId=2",
+							"raw": "https://perico-client-backend-app.herokuapp.com/perico/v1/backend/orders/products?categoryId=2",
+							"protocol": "https",
+							"host": [
+								"perico-client-backend-app",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"perico",
+								"v1",
+								"backend",
+								"orders",
+								"products"
+							],
+							"query": [
+								{
+									"key": "categoryId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Organization-Id",
+								"value": "PERICO_CLIENT",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"ocampos\",\r\n    \"userPassword\": \"oc123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/perico/v1/backend/users/login",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
+							"path": [
+								"perico",
+								"v1",
+								"backend",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Persona",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Organization-Id",
+								"value": "PERICO_CLIENT",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"ocampos\",\r\n    \"userPassword\": \"oc123\",\r\n    \"userType\": \"CLIENT\",\r\n    \"userStatus\": \"A\",\r\n    \"documentNumber\": \"47111123\",\r\n    \"name\": \"OSCAR\",\r\n    \"lastName\": \"CAMPOS\",\r\n    \"phoneNumber\": \"992548000\",\r\n    \"address\": \"Av Flores 100\",\r\n    \"addressReference\": \"Frente al parque el sol\",\r\n    \"birthday\": \"28/02/1993\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/perico/v1/backend/persons",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"perico",
+								"v1",
+								"backend",
+								"persons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Calcular precio",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Organization-Id",
+								"value": "PERICO_CLIENT",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"products\": [\r\n        {\r\n            \"productId\": 1,\r\n            \"categoryId\": 1,\r\n            \"productPrice\": 23.0\r\n        },\r\n        {\r\n            \"productId\": 1,\r\n            \"categoryId\": 1,\r\n            \"productPrice\": 23.0\r\n        },\r\n        {\r\n            \"productId\": 2,\r\n            \"categoryId\": 1,\r\n            \"productPrice\": 30.0\r\n        },\r\n        {\r\n            \"productId\": 2,\r\n            \"categoryId\": 1,\r\n            \"productPrice\": 30.0\r\n        },\r\n        {\r\n            \"productId\": 3,\r\n            \"categoryId\": 1,\r\n            \"productPrice\": 30.0\r\n        },\r\n        {\r\n            \"productId\": 10,\r\n            \"categoryId\": 2,\r\n            \"productPrice\": 23.0\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/perico/v1/backend/priceDetails",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"perico",
+								"v1",
+								"backend",
+								"priceDetails"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registrar Orden Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Organization-Id",
+								"value": "PERICO_CLIENT",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"clientDocumentNumber\": \"41239874\",\r\n    \"phoneNumber\": \"992185444\",\r\n    \"email\": \"cgonzales@gmail.com\",\r\n    \"paymentMethod\": \"YAPE\",\r\n    \"addressDelivery\": \"Av Las Rosas 152\",\r\n    \"addressReferenceDelivery\": \"Cerca al parque los girasoles\",\r\n    \"products\": [\r\n        {\r\n            \"productId\": 1,\r\n            \"categoryId\": 1,\r\n            \"productPrice\": 23.0\r\n        },\r\n        {\r\n            \"productId\": 1,\r\n            \"categoryId\": 1,\r\n            \"productPrice\": 23.0\r\n        },\r\n        {\r\n            \"productId\": 2,\r\n            \"categoryId\": 1,\r\n            \"productPrice\": 30.0\r\n        },\r\n        {\r\n            \"productId\": 2,\r\n            \"categoryId\": 1,\r\n            \"productPrice\": 30.0\r\n        },\r\n        {\r\n            \"productId\": 3,\r\n            \"categoryId\": 1,\r\n            \"productPrice\": 30.0\r\n        },\r\n        {\r\n            \"productId\": 10,\r\n            \"categoryId\": 2,\r\n            \"productPrice\": 23.0\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/perico/v1/backend/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"perico",
+								"v1",
+								"backend",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Heroku",
+			"item": [
+				{
+					"name": "Health check",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Organization-Id",
+								"value": "PERICO_CLIENT",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://perico-client-backend-app.herokuapp.com/perico/v1/backend/healthCheck",
+							"protocol": "https",
+							"host": [
+								"perico-client-backend-app",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"perico",
+								"v1",
+								"backend",
+								"healthCheck"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener categorías",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Organization-Id",
+								"value": "PERICO_CLIENT",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://perico-client-backend-app.herokuapp.com/perico/v1/backend/orders/categories",
+							"protocol": "https",
+							"host": [
+								"perico-client-backend-app",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"perico",
+								"v1",
+								"backend",
+								"orders",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener productos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Organization-Id",
+								"value": "PERICO_CLIENT",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://perico-client-backend-app.herokuapp.com/perico/v1/backend/orders/products?categoryId=2",
+							"protocol": "https",
+							"host": [
+								"perico-client-backend-app",
+								"herokuapp",
+								"com"
+							],
 							"path": [
 								"perico",
 								"v1",
@@ -121,12 +371,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/perico/v1/backend/orders",
-							"protocol": "http",
+							"raw": "https://perico-client-backend-app.herokuapp.com/perico/v1/backend/orders",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"perico-client-backend-app",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"perico",
 								"v1",
@@ -158,12 +409,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/perico/v1/backend/priceDetails",
-							"protocol": "http",
+							"raw": "https://perico-client-backend-app.herokuapp.com/perico/v1/backend/priceDetails",
+							"protocol": "https",
 							"host": [
-								"localhost"
+								"perico-client-backend-app",
+								"herokuapp",
+								"com"
 							],
-							"port": "8080",
 							"path": [
 								"perico",
 								"v1",
