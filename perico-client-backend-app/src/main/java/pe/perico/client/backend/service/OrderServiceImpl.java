@@ -39,12 +39,12 @@ public class OrderServiceImpl implements OrderService {
 
         Optional<User> employeeDefault =  userRepository.findUserByType(Constants.EMPLOYEE_TYPE_USER);
         if (employeeDefault.isEmpty()) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, Constants.EMPLOYEE_NOT_EXISTS);
         }
 
         Optional<User> client =  userRepository.findUserByPersonDocument(orderRequestWebDto.getClientDocumentNumber());
         if (client.isEmpty()) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+            throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED, Constants.CLIENT_NOT_EXISTS);
         }
 
         OrderResponseWebDto orderResponseWebDto = new OrderResponseWebDto();

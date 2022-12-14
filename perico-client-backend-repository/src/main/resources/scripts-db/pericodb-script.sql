@@ -53,6 +53,75 @@ ALTER TABLE [Business].[Product]  WITH CHECK ADD  CONSTRAINT [FK_Product_Categor
 REFERENCES [Business].[Category] ([categoryId])
 GO
 
+
+/****** Object:  Table [Business].[Provider]    Script Date: 08/10/2022 15:13:33 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [Business].[Provider](
+	[providerId] [bigint] IDENTITY(1,1) NOT NULL,
+	[providerName] [nvarchar](200) NOT NULL,
+	[providerRegisterDate] [datetime] NOT NULL,
+	[providerStatus] [nchar](1) NOT NULL
+ CONSTRAINT [PK_Provider] PRIMARY KEY CLUSTERED 
+(
+	[providerId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+/****** Object:  Table [Business].[Supply]    Script Date: 08/10/2022 15:13:33 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [Business].[Supply](
+	[supplyId] [bigint] IDENTITY(1,1) NOT NULL,
+	[providerId] [bigint] NULL,
+	[supplyName] [nvarchar](200) NOT NULL,
+	[metricUnits] [nvarchar](200) NOT NULL,
+	[supplyCost] [decimal](8,2) NOT NULL,
+	[supplyStock] int NOT NULL,
+	[supplyRegisterDate] [datetime] NOT NULL,
+	[supplyStatus] [nchar](1) NOT NULL
+ CONSTRAINT [PK_Supply] PRIMARY KEY CLUSTERED 
+(
+	[supplyId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [Business].[Supply]  WITH CHECK ADD  CONSTRAINT [FK_Supply_Provider] FOREIGN KEY([providerId])
+REFERENCES [Business].[Provider] ([providerId])
+GO
+
+/****** Object:  Table [Business].[ProductDetail]  Script Date: 08/10/2022 15:13:33 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [Business].[ProductDetail](
+	[productDetailId] [bigint] IDENTITY(1,1) NOT NULL,
+	[productId] [bigint] NULL,
+	[supplyId] [bigint] NULL,
+	[quantity] int NOT NULL,
+ CONSTRAINT [PK_ProductDetail] PRIMARY KEY CLUSTERED 
+(
+	[productDetailId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [Business].[ProductDetail]  WITH CHECK ADD  CONSTRAINT [FK_ProductDetail_Product] FOREIGN KEY([productId])
+REFERENCES [Business].[Product] ([productId])
+GO
+
+GO
+ALTER TABLE [Business].[ProductDetail]  WITH CHECK ADD  CONSTRAINT [FK_ProductDetail_Supply] FOREIGN KEY([supplyId])
+REFERENCES [Business].[Supply] ([supplyId])
+GO
+
 /****** Object:  Table [Business].[Person]    Script Date: 08/10/2022 15:13:33 ******/
 SET ANSI_NULLS ON
 GO

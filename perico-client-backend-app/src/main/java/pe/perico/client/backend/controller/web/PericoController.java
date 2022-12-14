@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 import pe.perico.client.backend.constants.Constants;
 import pe.perico.client.backend.controller.web.dto.*;
 import pe.perico.client.backend.service.*;
@@ -85,11 +86,21 @@ public class PericoController {
     @PostMapping("/orders")
     public HttpEntity<OrderResponseWebDto> registerOrder(@RequestHeader MultiValueMap<String, String> headers, @RequestBody OrderRequestWebDto orderRequestWebDto) {
         if (validateHeader(headers)) {
-            OrderResponseWebDto response = orderService.registerOrder(orderRequestWebDto);
-            return ResponseEntity.status(HttpStatus.OK.value())
-                    .contentType(MediaType.APPLICATION_JSON).body(response);
+            try {
+                OrderResponseWebDto response = orderService.registerOrder(orderRequestWebDto);
+                return ResponseEntity.status(HttpStatus.OK.value())
+                        .contentType(MediaType.APPLICATION_JSON).body(response);
+            } catch (Exception e) {
+                if (e.getMessage().contains(Constants.CLIENT_NOT_EXISTS))
+                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+
+                if (e.getMessage().contains(Constants.EMPLOYEE_NOT_EXISTS))
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new OrderResponseWebDto());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 
