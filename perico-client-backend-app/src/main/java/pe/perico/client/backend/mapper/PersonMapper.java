@@ -19,7 +19,6 @@ public class PersonMapper {
                 .userStatus(Objects.nonNull(personRequestWebDto.getUserStatus()) ? personRequestWebDto.getUserStatus() : Constants.ACTIVE_CODE)
                 .personDocument(personRequestWebDto.getDocumentNumber())
                 .personName(personRequestWebDto.getName())
-                .personLastName(personRequestWebDto.getLastName())
                 .personPhoneNumber(personRequestWebDto.getPhoneNumber())
                 .personAddress(personRequestWebDto.getAddress())
                 .personAddressReference(personRequestWebDto.getAddressReference())

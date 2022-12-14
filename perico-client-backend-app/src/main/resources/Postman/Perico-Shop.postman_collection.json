@@ -77,13 +77,12 @@
 							}
 						],
 						"url": {
-							"raw": "https://perico-client-backend-app.herokuapp.com/perico/v1/backend/orders/products?categoryId=2",
-							"protocol": "https",
+							"raw": "http://localhost:8080/perico/v1/backend/orders/products?categoryId=2",
+							"protocol": "http",
 							"host": [
-								"perico-client-backend-app",
-								"herokuapp",
-								"com"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
 								"perico",
 								"v1",
@@ -152,7 +151,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"userName\": \"ocampos\",\r\n    \"userPassword\": \"oc123\",\r\n    \"userType\": \"CLIENT\",\r\n    \"userStatus\": \"A\",\r\n    \"documentNumber\": \"47111123\",\r\n    \"name\": \"OSCAR\",\r\n    \"lastName\": \"CAMPOS\",\r\n    \"phoneNumber\": \"992548000\",\r\n    \"address\": \"Av Flores 100\",\r\n    \"addressReference\": \"Frente al parque el sol\",\r\n    \"birthday\": \"28/02/1993\"\r\n}",
+							"raw": "{\r\n    \"userName\": \"ocampos\",\r\n    \"userPassword\": \"oc123\",\r\n    \"userType\": \"CLIENT\",\r\n    \"userStatus\": \"A\",\r\n    \"documentNumber\": \"47111123\",\r\n    \"name\": \"OSCAR\",\r\n    \"phoneNumber\": \"992548000\",\r\n    \"address\": \"Av Flores 100\",\r\n    \"addressReference\": \"Frente al parque el sol\",\r\n    \"birthday\": \"28/02/1993\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -214,7 +213,7 @@
 					"response": []
 				},
 				{
-					"name": "Registrar Orden Copy",
+					"name": "Registrar Orden",
 					"request": {
 						"method": "POST",
 						"header": [

@@ -23,7 +23,6 @@ public class PersonRequestWebDto extends RepresentationModel<PersonRequestWebDto
     private String userStatus;
     private String documentNumber;
     private String name;
-    private String lastName;
     private String phoneNumber;
     private String address;
     private String addressReference;

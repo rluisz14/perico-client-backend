@@ -82,7 +82,7 @@ CREATE TABLE [Business].[Supply](
 	[supplyName] [nvarchar](200) NOT NULL,
 	[metricUnits] [nvarchar](200) NOT NULL,
 	[supplyCost] [decimal](8,2) NOT NULL,
-	[supplyStock] int NOT NULL,
+	[supplyStock] [decimal](8,2) NOT NULL,
 	[supplyRegisterDate] [datetime] NOT NULL,
 	[supplyStatus] [nchar](1) NOT NULL
  CONSTRAINT [PK_Supply] PRIMARY KEY CLUSTERED 
@@ -105,7 +105,7 @@ CREATE TABLE [Business].[ProductDetail](
 	[productDetailId] [bigint] IDENTITY(1,1) NOT NULL,
 	[productId] [bigint] NULL,
 	[supplyId] [bigint] NULL,
-	[quantity] int NOT NULL,
+	[quantity] [decimal](8,2) NOT NULL
  CONSTRAINT [PK_ProductDetail] PRIMARY KEY CLUSTERED 
 (
 	[productDetailId] ASC
@@ -131,7 +131,6 @@ CREATE TABLE [Business].[Person](
 	[personId] [bigint] IDENTITY(1,1) NOT NULL,
 	[personDocument] [nvarchar](8) NULL,
 	[personName] [nvarchar](200) NOT NULL,
-	[personLastName] [nvarchar](200) NOT NULL,
 	[personPhoneNumber] [nvarchar](20) NULL,
 	[personAddresss] [nvarchar](200) NULL,
 	[personAddresssReference] [nvarchar](200) NULL,

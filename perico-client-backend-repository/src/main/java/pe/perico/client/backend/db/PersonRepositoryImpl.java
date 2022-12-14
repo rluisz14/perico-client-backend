@@ -29,13 +29,12 @@ public class PersonRepositoryImpl implements PersonRepository {
         SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
                 .withSchemaName(SCHEMA_BUSINESS)
                 .withTableName(TBL_PERSON)
-                .usingColumns("personDocument", "personName", "personLastName", "personPhoneNumber",
+                .usingColumns("personDocument", "personName", "personPhoneNumber",
                         "personAddress", "personAddressReference", "personBirthday")
                 .usingGeneratedKeyColumns("orderId");
         Map<String, Object> params = new HashMap<>();
         params.put("personDocument", person.getPersonDocument());
         params.put("personName", person.getPersonName());
-        params.put("personLastName", person.getPersonLastName());
         params.put("personPhoneNumber", person.getPersonPhoneNumber());
         params.put("personAddress", person.getPersonAddress());
         params.put("personAddressReference", person.getPersonAddressReference());
