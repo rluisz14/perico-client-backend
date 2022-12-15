@@ -10,9 +10,11 @@ import pe.perico.client.backend.db.ProductRepository;
 import pe.perico.client.backend.db.SupplyRepository;
 import pe.perico.client.backend.domain.Product;
 import pe.perico.client.backend.domain.ProductDetail;
+import pe.perico.client.backend.domain.ProductDetailView;
 import pe.perico.client.backend.domain.Supply;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Slf4j
@@ -43,9 +45,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDetailResponseWebDto findProductDetailByProductId(Long productId) {
+    public ProductDetailResponseWebDto findProductDetailByProductId(Long productId, Integer quantity) {
         ProductDetailResponseWebDto productDetailResponseWebDto = new ProductDetailResponseWebDto();
-        productDetailResponseWebDto.setProductDetails(productDetailRepository.findProductDetailViewByProductId(productId));
+        List<ProductDetailView> productDetailViews = productDetailRepository.findProductDetailViewByProductId(productId);
+        if (Objects.nonNull(quantity) && quantity > 0)
+        productDetailViews.forEach(productDetailView -> {
+            productDetailView.setQuantity(productDetailView.getQuantity() * quantity);
+        });
+        productDetailResponseWebDto.setProductDetails(productDetailViews);
         return productDetailResponseWebDto;
     }
 }

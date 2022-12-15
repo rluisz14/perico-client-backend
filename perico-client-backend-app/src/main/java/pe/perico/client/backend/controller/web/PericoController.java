@@ -72,9 +72,9 @@ public class PericoController {
     }
 
     @GetMapping("/orders/product-details")
-    public HttpEntity<ProductDetailResponseWebDto> getProductDetails(@RequestHeader MultiValueMap<String, String> headers, @RequestParam Long productId) {
+    public HttpEntity<ProductDetailResponseWebDto> getProductDetails(@RequestHeader MultiValueMap<String, String> headers, @RequestParam Long productId, @RequestParam(required = false) Integer quantity) {
         if (validateHeader(headers)) {
-            ProductDetailResponseWebDto response = productService.findProductDetailByProductId(productId);
+            ProductDetailResponseWebDto response = productService.findProductDetailByProductId(productId, quantity);
             return ResponseEntity.status(HttpStatus.OK.value())
                     .contentType(MediaType.APPLICATION_JSON).body(response);
         } else {
