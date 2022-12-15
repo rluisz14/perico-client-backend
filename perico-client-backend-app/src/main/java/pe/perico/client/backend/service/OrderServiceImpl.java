@@ -131,19 +131,35 @@ public class OrderServiceImpl implements OrderService {
             });
 
         });
-        List<SupplyStock> suppliesDistinctList = supplies.stream()
+
+       List<SupplyStock> suppliesDistinctList = supplies.stream()
                 .filter(Util.distinctByKey(SupplyStock::getSupplyId))
                 .collect(Collectors.toList());
 
+        List<SupplyStock> suppliesWithQuantity = new ArrayList<>();
 
-        for (SupplyStock supplyStock : supplies) {
-            for (SupplyStock supplyDistinctList : suppliesDistinctList) {
+        for (SupplyStock supplyDistinctList : suppliesDistinctList) {
+           Double quantity =  supplyDistinctList.getQuantityUsed();
+           int count = 0;
+            for (SupplyStock supplyStock : supplies) {
                 if (supplyDistinctList.getSupplyId().equals(supplyStock.getSupplyId())) {
-                    supplyDistinctList.setQuantityUsed(supplyDistinctList.getQuantityUsed() + supplyStock.getQuantityUsed());
+                    if (count == 0) {
+                        quantity =  supplyStock.getQuantityUsed();
+                        count++;
+                    } else {
+                        quantity =  quantity + supplyStock.getQuantityUsed();
+                        count++;
+                    }
                 }
             }
+
+            SupplyStock stock = SupplyStock.builder()
+                    .supplyId(supplyDistinctList.getSupplyId())
+                    .quantityUsed(quantity)
+                    .build();
+            suppliesWithQuantity.add(stock);
         }
 
-        return suppliesDistinctList;
+        return suppliesWithQuantity;
     }
 }
