@@ -7,12 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import pe.perico.client.backend.constants.Constants;
 import pe.perico.client.backend.controller.web.dto.*;
-import pe.perico.client.backend.db.OrderDetailRepository;
-import pe.perico.client.backend.db.OrderRepository;
-import pe.perico.client.backend.db.UserRepository;
-import pe.perico.client.backend.domain.OrderDetailView;
-import pe.perico.client.backend.domain.OrderView;
-import pe.perico.client.backend.domain.User;
+import pe.perico.client.backend.db.*;
+import pe.perico.client.backend.domain.*;
 import pe.perico.client.backend.mapper.OrderDetailMapper;
 import pe.perico.client.backend.mapper.OrderMapper;
 import pe.perico.client.backend.util.Util;
@@ -31,6 +27,9 @@ public class OrderServiceImpl implements OrderService {
     private final OrderDetailRepository orderDetailRepository;
     private final UserRepository userRepository;
     private final PriceDetailsService priceDetailsService;
+    private final ProductDetailRepository productDetailRepository;
+    private final ProductRepository productRepository;
+    private final SupplyRepository supplyRepository;
     private final OrderMapper orderMapper;
     private final OrderDetailMapper orderDetailMapper;
 
@@ -50,21 +49,41 @@ public class OrderServiceImpl implements OrderService {
             throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED, Constants.CLIENT_NOT_EXISTS);
         }
 
+        List<ProductOrderRequestWebDto> productsFiltered = setQuantityForEachProduct(orderRequestWebDto.getProducts());
+        List<SupplyStock> suppliesFiltered = setQuantityForEachSupply(productsFiltered);
+
+        suppliesFiltered.stream().forEach(supplyFiltered -> {
+                Optional<Supply> supplyOptional = supplyRepository.findSupplyBySupplyId(supplyFiltered.getSupplyId());
+
+                if (supplyOptional.isEmpty()) {
+                    throw new HttpClientErrorException(HttpStatus.NOT_FOUND, Constants.SUPPLY_NOT_EXISTS);
+                }
+
+                if (supplyOptional.get().getSupplyStock() < supplyFiltered.getQuantityUsed()) {
+                    throw new HttpClientErrorException(HttpStatus.PRECONDITION_FAILED, Constants.SUPPLY_NOT_AVAILABLE);
+                }
+        });
+
         OrderResponseWebDto orderResponseWebDto = new OrderResponseWebDto();
         orderResponseWebDto.setOrderId(orderRepository.registerOrder(orderMapper.convertOrderRequestWebDtoToOrder(orderRequestWebDto,
                 priceDetailsResponseWebDto.getPriceDetails(), employeeDefault.get().getUserId(), client.get().getUserId())));
 
-        List<ProductOrderRequestWebDto> productsFiltered = setQuantityForEachProduct(orderRequestWebDto.getProducts());
         productsFiltered.stream().forEach(product -> {
             orderDetailRepository.registerOrderDetail(orderDetailMapper.convertOrderRequestWebDtoToOrder(product,
                     Long.valueOf(orderResponseWebDto.getOrderId())));
+        });
+
+        suppliesFiltered.stream().forEach(suppliesForUpdateStock -> {
+            Optional<Supply> supplyOptional = supplyRepository.findSupplyBySupplyId(suppliesForUpdateStock.getSupplyId());
+            Double newSupplyStock = supplyOptional.get().getSupplyStock() - suppliesForUpdateStock.getQuantityUsed();
+            supplyRepository.updateSupplyStock(suppliesForUpdateStock.getSupplyId(), newSupplyStock);
         });
 
         return orderResponseWebDto;
     }
 
     @Override
-    public ListOrderResponseWebDto findAllOrders(String orderStatus) {
+    public ListOrderResponseWebDto findAllOrders(List<String> orderStatus) {
         ListOrderResponseWebDto listOrderResponseWebDto = new ListOrderResponseWebDto();
         listOrderResponseWebDto.setOrders(new ArrayList<>());
         List<OrderView> orders = orderRepository.findAllOrders(orderStatus);
@@ -93,5 +112,35 @@ public class OrderServiceImpl implements OrderService {
         }
 
         return productDistinctList;
+    }
+
+    private List<SupplyStock> setQuantityForEachSupply(List<ProductOrderRequestWebDto> products) {
+        List<SupplyStock> supplies = new ArrayList<>();
+
+        products.stream().forEach(product -> {
+            List<ProductDetail> productDetails = productDetailRepository.findProductDetailByByProductId(product.getProductId());
+            productDetails.stream().forEach(productDetail -> {
+                SupplyStock supply = SupplyStock.builder()
+                        .supplyId(productDetail.getSupplyId())
+                        .quantityUsed(productDetail.getQuantity() * product.getQuantity())
+                        .build();
+                supplies.add(supply);
+            });
+
+        });
+        List<SupplyStock> suppliesDistinctList = supplies.stream()
+                .filter(Util.distinctByKey(SupplyStock::getSupplyId))
+                .collect(Collectors.toList());
+
+
+        for (SupplyStock suppliesDistinct : suppliesDistinctList) {
+            for (SupplyStock supplyStock : supplies) {
+                if (suppliesDistinct.getSupplyId().equals(supplyStock.getSupplyId())) {
+                    suppliesDistinct.setQuantityUsed(suppliesDistinct.getQuantityUsed() + supplyStock.getQuantityUsed());
+                }
+            }
+        }
+
+        return suppliesDistinctList;
     }
 }

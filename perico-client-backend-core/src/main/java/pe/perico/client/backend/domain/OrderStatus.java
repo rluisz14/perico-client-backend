@@ -5,8 +5,10 @@ package pe.perico.client.backend.domain;
  */
 public enum OrderStatus {
 
+    NEW("NUEVO"),
+    IN_PREPARATION("EN_PREPARACION"),
     TO_BE_DELIVERED("POR_ENTREGAR"),
-    DELIVERED("ENTREGADA");
+    DELIVERED("ENTREGADO");
 
     private String description;
 

@@ -115,7 +115,7 @@ public class PericoController {
     }
 
     @GetMapping("/orders")
-    public HttpEntity<ListOrderResponseWebDto> getOrders(@RequestHeader MultiValueMap<String, String> headers, @RequestParam(required = false) String orderStatus) {
+    public HttpEntity<ListOrderResponseWebDto> getOrders(@RequestHeader MultiValueMap<String, String> headers, @RequestParam(required = false) List<String> orderStatus) {
         if (validateHeader(headers)) {
             ListOrderResponseWebDto response = orderService.findAllOrders(orderStatus);
             return ResponseEntity.status(HttpStatus.OK.value())

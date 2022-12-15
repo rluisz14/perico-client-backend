@@ -6,10 +6,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.CollectionUtils;
 import pe.perico.client.backend.db.rowmapper.OrderRowMapper;
 import pe.perico.client.backend.domain.Order;
 import pe.perico.client.backend.domain.OrderView;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +30,15 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     private static final String TBL_ORDER = "[Order]";
     private static final String SCHEMA_BUSINESS = "[Business]";
+    private static final String FIND_ORDER_BY_STATUS_TWO = "SELECT o.orderId,pc.personDocument AS clientDocumentNumber, pc.personName AS clientName,\n" +
+                                                        "pe.personName AS employeeName,\n" +
+                                                        "o.orderDate, o.orderDeliveredDate, o.orderStatus,\n" +
+                                                        "o.subtotal, o.igv, o.deliveryCost, o.total, o.phoneNumber, o.email, o.paymentMethod,\n" +
+                                                        "o.addressDelivery, o.addressReferenceDelivery\n" +
+                                                        "FROM [Business].[Order] o \n" +
+                                                        "INNER JOIN [Business].[Person] pc ON o.clientUserId = pc.personId\n" +
+                                                        "INNER JOIN [Business].[Person] pe ON o.employeeUserId = pe.personId\n" +
+                                                        "WHERE [orderStatus] = ? OR [orderStatus] = ? ORDER BY orderDate DESC";
     private static final String FIND_ORDER_BY_STATUS = "SELECT o.orderId,pc.personDocument AS clientDocumentNumber, pc.personName AS clientName,\n" +
                                                         "pe.personName AS employeeName,\n" +
                                                         "o.orderDate, o.orderDeliveredDate, o.orderStatus,\n" +
@@ -47,10 +58,18 @@ public class OrderRepositoryImpl implements OrderRepository {
                                                 "INNER JOIN [Business].[Person] pe ON o.employeeUserId = pe.personId ORDER BY orderDate DESC";
 
     @Override
-    public List<OrderView> findAllOrders(String orderStatus) {
-        if (StringUtils.isNotBlank(orderStatus)) {
-            return jdbcTemplate.query(FIND_ORDER_BY_STATUS, new Object[]{orderStatus}, orderRowMapper);
+    public List<OrderView> findAllOrders(List<String> orderStatus) {
+        if (!CollectionUtils.isEmpty(orderStatus)) {
+            switch (orderStatus.size()) {
+                case 1:
+                    return jdbcTemplate.query(FIND_ORDER_BY_STATUS, new Object[]{orderStatus.get(0)}, orderRowMapper);
+                case 2:
+                    return jdbcTemplate.query(FIND_ORDER_BY_STATUS_TWO, new Object[]{orderStatus.get(0), orderStatus.get(1)}, orderRowMapper);
+                default:
+                    break;
+            }
         }
+
         return jdbcTemplate.query(FIND_ALL_ORDER, new Object[]{}, orderRowMapper);
     }
 

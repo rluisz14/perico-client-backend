@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface OrderRepository {
 
-    List<OrderView> findAllOrders(String orderStatus);
+    List<OrderView> findAllOrders(List<String> orderStatus);
     String registerOrder(Order order);
     String updateOrder(Order order);
     String deleteOrder(Long orderId);

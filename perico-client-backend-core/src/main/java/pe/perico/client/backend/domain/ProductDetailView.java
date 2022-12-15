@@ -20,6 +20,6 @@ public class ProductDetailView implements Serializable {
     private Long productDetailId;
     private String supplyName;
     private String metricUnits;
-    private Integer quantity;
+    private Double quantity;
     private String providerName;
 }

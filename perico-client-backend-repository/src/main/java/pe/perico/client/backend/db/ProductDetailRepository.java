@@ -1,5 +1,6 @@
 package pe.perico.client.backend.db;
 
+import pe.perico.client.backend.domain.ProductDetail;
 import pe.perico.client.backend.domain.ProductDetailView;
 
 import java.util.List;
@@ -9,5 +10,6 @@ import java.util.List;
  */
 public interface ProductDetailRepository {
 
-    List<ProductDetailView> findProductDetailByProductId(Long productId);
+    List<ProductDetailView> findProductDetailViewByProductId(Long productId);
+    List<ProductDetail> findProductDetailByByProductId(Long productId);
 }

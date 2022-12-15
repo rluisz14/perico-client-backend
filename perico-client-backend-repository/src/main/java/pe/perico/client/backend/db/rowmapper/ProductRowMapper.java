@@ -22,7 +22,6 @@ public class ProductRowMapper implements RowMapper<Product> {
                 .productCost(rs.getDouble("productCost"))
                 .productName(rs.getString("productName"))
                 .productDescription(rs.getString("productDescription"))
-                .productStock(rs.getInt("productStock"))
                 .productRegisterDate(Util.fromTimestamp(rs,"productRegisterDate"))
                 .productImageUrl(rs.getString("productImageUrl"))
                 .productStatus(rs.getString("productStatus"))

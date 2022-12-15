@@ -21,7 +21,7 @@ public class OrderMapper {
                 .employeeUserId(Objects.nonNull(orderRequestWebDto.getEmployeeUserId()) ? orderRequestWebDto.getEmployeeUserId() : employeeIdDefault)
                 .clientUserId(Objects.nonNull(orderRequestWebDto.getClientUserId()) ? orderRequestWebDto.getClientUserId() : clientUserId)
                 .orderDate(LocalDateTime.now(ZoneId.of(Constants.ZONE_AMERICA)))
-                .orderStatus(OrderStatus.TO_BE_DELIVERED.getDescription())
+                .orderStatus(OrderStatus.NEW.getDescription())
                 .subtotal(priceDetails.getSubTotal())
                 .igv(priceDetails.getIgv())
                 .deliveryCost(priceDetails.getDeliveryCost())

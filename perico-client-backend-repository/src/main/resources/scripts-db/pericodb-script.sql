@@ -38,7 +38,6 @@ CREATE TABLE [Business].[Product](
 	[productDescription] [nvarchar](200) NOT NULL,
 	[productPrice] [decimal](8,2) NOT NULL,
 	[productCost] [decimal](8,2) NOT NULL,
-	[productStock] int NOT NULL,
 	[productRegisterDate] [datetime] NOT NULL,
 	[productImageUrl] [nvarchar](200) NOT NULL,
 	[productStatus] [nchar](1) NOT NULL

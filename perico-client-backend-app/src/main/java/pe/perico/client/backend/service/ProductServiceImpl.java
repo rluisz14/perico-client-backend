@@ -26,7 +26,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDetailResponseWebDto findProductDetailByProductId(Long productId) {
         ProductDetailResponseWebDto productDetailResponseWebDto = new ProductDetailResponseWebDto();
-        productDetailResponseWebDto.setProductDetails(productDetailRepository.findProductDetailByProductId(productId));
+        productDetailResponseWebDto.setProductDetails(productDetailRepository.findProductDetailViewByProductId(productId));
         return productDetailResponseWebDto;
     }
 }

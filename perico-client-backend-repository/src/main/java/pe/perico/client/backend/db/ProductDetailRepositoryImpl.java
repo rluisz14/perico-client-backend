@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import pe.perico.client.backend.db.rowmapper.ProductDetailRowMapper;
+import pe.perico.client.backend.db.rowmapper.ProductDetailViewRowMapper;
+import pe.perico.client.backend.domain.ProductDetail;
 import pe.perico.client.backend.domain.ProductDetailView;
 
 import java.util.List;
@@ -19,16 +21,24 @@ import java.util.List;
 public class ProductDetailRepositoryImpl implements ProductDetailRepository {
 
     private final JdbcTemplate jdbcTemplate;
+    private final ProductDetailViewRowMapper productDetailViewRowMapper;
     private final ProductDetailRowMapper productDetailRowMapper;
 
-    private static final String FIND_PRODUCT_DETAIL_BY_PRODUCT_ID = "SELECT pd.productDetailId, s.supplyName, s.metricUnits, pd.quantity, pv.providerName FROM [Business].[ProductDetail] pd \n" +
+    private static final String FIND_PRODUCT_DETAIL_VIEW_BY_PRODUCT_ID = "SELECT pd.productDetailId, s.supplyName, s.metricUnits, pd.quantity, pv.providerName FROM [Business].[ProductDetail] pd \n" +
             "INNER JOIN [Business].[Product] p ON pd.productId = p.productId\n" +
             "INNER JOIN [Business].[Supply] s ON pd.supplyId = s.supplyId\n" +
             "INNER JOIN [Business].[Provider] pv ON s.providerId = pv.providerId\n" +
             "WHERE p.productId = ?";
 
+    private static final String FIND_PRODUCT_DETAIL_BY_PRODUCT_ID = "SELECT * FROM [Business].[ProductDetail] WHERE [productId] = ?";
+
     @Override
-    public List<ProductDetailView> findProductDetailByProductId(Long productId) {
+    public List<ProductDetailView> findProductDetailViewByProductId(Long productId) {
+        return jdbcTemplate.query(FIND_PRODUCT_DETAIL_VIEW_BY_PRODUCT_ID, new Object[]{productId}, productDetailViewRowMapper);
+    }
+
+    @Override
+    public List<ProductDetail> findProductDetailByByProductId(Long productId) {
         return jdbcTemplate.query(FIND_PRODUCT_DETAIL_BY_PRODUCT_ID, new Object[]{productId}, productDetailRowMapper);
     }
 }

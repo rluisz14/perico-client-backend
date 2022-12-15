@@ -15,16 +15,9 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Product implements Serializable {
+public class SupplyStock implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Long productId;
-    private Long categoryId;
-    private String productName;
-    private String productDescription;
-    private Double productPrice;
-    private Double productCost;
-    private LocalDateTime productRegisterDate;
-    private String productImageUrl;
-    private String productStatus;
+    private Long supplyId;
+    private Double quantityUsed;
 }

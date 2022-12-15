@@ -25,4 +25,6 @@ public class Constants {
     public static final String USERNAME_DOCUMENT_ALREADY_EXISTS = "Usuario y documento ya se encuentran en uso";
     public static final String EMAIL_DOCUMENT_ALREADY_EXISTS = "Email y documento ya se encuentran en uso";
     public static final String USERNAME_EMAIL_ALREADY_EXISTS = "Email y usuario ya se encuentran en uso";
+    public static final String SUPPLY_NOT_AVAILABLE = "No hay insumos disponibles para alguno de los productos de la orden";
+    public static final String SUPPLY_NOT_EXISTS = "No se encontró el insumo";
 }
