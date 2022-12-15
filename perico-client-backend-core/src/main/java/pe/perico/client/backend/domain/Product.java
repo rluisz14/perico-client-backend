@@ -27,4 +27,5 @@ public class Product implements Serializable {
     private LocalDateTime productRegisterDate;
     private String productImageUrl;
     private String productStatus;
+    private Boolean hasStock;
 }

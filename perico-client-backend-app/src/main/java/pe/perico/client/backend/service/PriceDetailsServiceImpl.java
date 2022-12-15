@@ -38,10 +38,10 @@ public class PriceDetailsServiceImpl implements PriceDetailsService {
         }
 
         List<Double> productPrices = new ArrayList<>();
-        requestWebDto.getProducts().stream().forEach(p -> productPrices.add(p.getProductPrice()));
+        requestWebDto.getProducts().forEach(p -> productPrices.add(p.getProductPrice()));
 
         List<Double> discountPercentages = new ArrayList<>();
-        discounts.stream().forEach(d -> discountPercentages.add(d.getDiscountPercentage()));
+        discounts.forEach(d -> discountPercentages.add(d.getDiscountPercentage()));
 
         Iterator<Double> i = productPrices.iterator();
         Double productsPrice = i.next();

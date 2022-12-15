@@ -28,7 +28,6 @@ public class OrderServiceImpl implements OrderService {
     private final UserRepository userRepository;
     private final PriceDetailsService priceDetailsService;
     private final ProductDetailRepository productDetailRepository;
-    private final ProductRepository productRepository;
     private final SupplyRepository supplyRepository;
     private final OrderMapper orderMapper;
     private final OrderDetailMapper orderDetailMapper;
@@ -52,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
         List<ProductOrderRequestWebDto> productsFiltered = setQuantityForEachProduct(orderRequestWebDto.getProducts());
         List<SupplyStock> suppliesFiltered = setQuantityForEachSupply(productsFiltered);
 
-        suppliesFiltered.stream().forEach(supplyFiltered -> {
+        suppliesFiltered.forEach(supplyFiltered -> {
                 Optional<Supply> supplyOptional = supplyRepository.findSupplyBySupplyId(supplyFiltered.getSupplyId());
 
                 if (supplyOptional.isEmpty()) {
@@ -68,12 +67,12 @@ public class OrderServiceImpl implements OrderService {
         orderResponseWebDto.setOrderId(orderRepository.registerOrder(orderMapper.convertOrderRequestWebDtoToOrder(orderRequestWebDto,
                 priceDetailsResponseWebDto.getPriceDetails(), employeeDefault.get().getUserId(), client.get().getUserId())));
 
-        productsFiltered.stream().forEach(product -> {
+        productsFiltered.forEach(product -> {
             orderDetailRepository.registerOrderDetail(orderDetailMapper.convertOrderRequestWebDtoToOrder(product,
                     Long.valueOf(orderResponseWebDto.getOrderId())));
         });
 
-        suppliesFiltered.stream().forEach(suppliesForUpdateStock -> {
+        suppliesFiltered.forEach(suppliesForUpdateStock -> {
             Optional<Supply> supplyOptional = supplyRepository.findSupplyBySupplyId(suppliesForUpdateStock.getSupplyId());
             Double newSupplyStock = supplyOptional.get().getSupplyStock() - suppliesForUpdateStock.getQuantityUsed();
             supplyRepository.updateSupplyStock(suppliesForUpdateStock.getSupplyId(), newSupplyStock);
@@ -87,7 +86,7 @@ public class OrderServiceImpl implements OrderService {
         ListOrderResponseWebDto listOrderResponseWebDto = new ListOrderResponseWebDto();
         listOrderResponseWebDto.setOrders(new ArrayList<>());
         List<OrderView> orders = orderRepository.findAllOrders(orderStatus);
-        orders.stream().forEach(order -> {
+        orders.forEach(order -> {
             List<OrderDetailView> orderDetailViews = orderDetailRepository.findOrderDetailByOrderId(order.getOrderId());
             listOrderResponseWebDto.getOrders().add(orderMapper.convertOrderViewToOrderViewComplete(order, orderDetailViews));
         });
@@ -117,9 +116,9 @@ public class OrderServiceImpl implements OrderService {
     private List<SupplyStock> setQuantityForEachSupply(List<ProductOrderRequestWebDto> products) {
         List<SupplyStock> supplies = new ArrayList<>();
 
-        products.stream().forEach(product -> {
+        products.forEach(product -> {
             List<ProductDetail> productDetails = productDetailRepository.findProductDetailByByProductId(product.getProductId());
-            productDetails.stream().forEach(productDetail -> {
+            productDetails.forEach(productDetail -> {
                 SupplyStock supply = SupplyStock.builder()
                         .supplyId(productDetail.getSupplyId())
                         .quantityUsed(productDetail.getQuantity() * product.getQuantity())
