@@ -1,6 +1,7 @@
 package pe.perico.client.backend.db;
 
 import pe.perico.client.backend.domain.Supply;
+import pe.perico.client.backend.domain.SupplyView;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +11,7 @@ import java.util.Optional;
  */
 public interface SupplyRepository {
 
-    List<Supply> findAllSupplies();
+    List<SupplyView> findAllSupplies();
     Optional<Supply> findSupplyBySupplyId(Long supplyId);
     void updateSupplyStock(Long supplyId, Double supplyStock);
 }

@@ -28,13 +28,15 @@ public class PericoController {
     private final PriceDetailsService priceDetailsService;
     private final PersonService personService;
     private final UserService userService;
+    private final SupplyService supplyService;
 
     public PericoController(CategoryService categoryService,
                             ProductService productService,
                             OrderService orderService,
                             PriceDetailsService priceDetailsService,
                             PersonService personService,
-                            UserService userService) {
+                            UserService userService,
+                            SupplyService supplyService) {
         super();
         this.categoryService = categoryService;
         this.productService = productService;
@@ -42,6 +44,7 @@ public class PericoController {
         this.priceDetailsService = priceDetailsService;
         this.personService = personService;
         this.userService = userService;
+        this.supplyService = supplyService;
     }
 
     @GetMapping("/healthCheck")
@@ -144,6 +147,17 @@ public class PericoController {
                     .contentType(MediaType.APPLICATION_JSON).body(response);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new PersonResponseWebDto());
+        }
+    }
+
+    @GetMapping("/supplies")
+    public HttpEntity<ListSupplyResponseWebDto> getSupplies(@RequestHeader MultiValueMap<String, String> headers) {
+        if (validateHeader(headers)) {
+            ListSupplyResponseWebDto response = supplyService.getSupplies();
+            return ResponseEntity.status(HttpStatus.OK.value())
+                    .contentType(MediaType.APPLICATION_JSON).body(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ListSupplyResponseWebDto());
         }
     }
 
