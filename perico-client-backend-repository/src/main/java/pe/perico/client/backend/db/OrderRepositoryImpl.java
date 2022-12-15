@@ -2,7 +2,6 @@ package pe.perico.client.backend.db;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
@@ -11,7 +10,6 @@ import pe.perico.client.backend.db.rowmapper.OrderRowMapper;
 import pe.perico.client.backend.domain.Order;
 import pe.perico.client.backend.domain.OrderView;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

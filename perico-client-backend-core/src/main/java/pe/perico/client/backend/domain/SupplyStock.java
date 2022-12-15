@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * @author rluisz14 on 08/10/2022
