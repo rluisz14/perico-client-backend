@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * @author rluisz14 on 08/10/2022

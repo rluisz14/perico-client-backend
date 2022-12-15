@@ -23,7 +23,7 @@ public class Supply implements Serializable {
     private String supplyName;
     private String metricUnits;
     private Double supplyCost;
-    private Integer supplyStock;
+    private Double supplyStock;
     private LocalDateTime supplyRegisterDate;
     private String supplyStatus;
 }

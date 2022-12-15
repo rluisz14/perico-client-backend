@@ -1,6 +1,7 @@
 package pe.perico.client.backend.db;
 
 import pe.perico.client.backend.domain.Order;
+import pe.perico.client.backend.domain.OrderView;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  */
 public interface OrderRepository {
 
-    List<Order> findAllOrders();
+    List<OrderView> findAllOrders(String orderStatus);
     String registerOrder(Order order);
     String updateOrder(Order order);
     String deleteOrder(Long orderId);

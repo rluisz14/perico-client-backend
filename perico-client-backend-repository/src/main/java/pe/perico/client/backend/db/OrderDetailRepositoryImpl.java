@@ -5,9 +5,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+import pe.perico.client.backend.db.rowmapper.OrderDetailRowMapper;
 import pe.perico.client.backend.domain.OrderDetail;
+import pe.perico.client.backend.domain.OrderDetailView;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,9 +23,13 @@ import java.util.Map;
 public class OrderDetailRepositoryImpl implements OrderDetailRepository {
 
     private final JdbcTemplate jdbcTemplate;
+    private final OrderDetailRowMapper orderDetailRowMapper;
 
     private static final String TBL_ORDER_DETAIL = "[OrderDetail]";
     private static final String SCHEMA_BUSINESS = "[Business]";
+    private static final String FIND_ORDER_DETAIL_BY_ORDER_ID = "SELECT od.orderDetailId, pt.productId, c.categoryName, pt.productName, od.quantity, od.price, pt.productImageUrl\n" +
+            "FROM [Business].[OrderDetail] od INNER JOIN [Business].[Product] pt ON od.productId = pt.productId\n" +
+            "INNER JOIN [Business].[Category] c ON pt.categoryId = c.categoryId WHERE [orderId] = ?";
 
     @Override
     public String registerOrderDetail(OrderDetail orderDetail) {
@@ -38,5 +45,10 @@ public class OrderDetailRepositoryImpl implements OrderDetailRepository {
         params.put("quantity", orderDetail.getQuantity());
         Number orderDetailId = simpleJdbcInsert.executeAndReturnKey(params);
         return String.valueOf(orderDetailId);
+    }
+
+    @Override
+    public List<OrderDetailView> findOrderDetailByOrderId(Long orderId) {
+        return jdbcTemplate.query(FIND_ORDER_DETAIL_BY_ORDER_ID, new Object[]{orderId}, orderDetailRowMapper);
     }
 }

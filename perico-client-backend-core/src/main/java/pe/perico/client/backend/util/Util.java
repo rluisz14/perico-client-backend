@@ -9,6 +9,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -26,8 +27,12 @@ public class Util {
 
     public static LocalDateTime fromTimestamp(ResultSet rs, String column)
             throws SQLException {
-        Timestamp timestamp = rs.getTimestamp(column);
-        return getDateTime(timestamp);
+        if (Objects.nonNull(column)) {
+            Timestamp timestamp = rs.getTimestamp(column);
+            return getDateTime(timestamp);
+        } else {
+            return null;
+        }
     }
 
     public static LocalDateTime getDateTime(Timestamp timestamp) {

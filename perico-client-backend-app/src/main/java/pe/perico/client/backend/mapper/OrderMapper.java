@@ -3,12 +3,11 @@ package pe.perico.client.backend.mapper;
 import org.springframework.stereotype.Component;
 import pe.perico.client.backend.constants.Constants;
 import pe.perico.client.backend.controller.web.dto.OrderRequestWebDto;
-import pe.perico.client.backend.domain.Order;
-import pe.perico.client.backend.domain.OrderStatus;
-import pe.perico.client.backend.domain.PriceDetails;
+import pe.perico.client.backend.domain.*;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -32,6 +31,28 @@ public class OrderMapper {
                 .paymentMethod(orderRequestWebDto.getPaymentMethod())
                 .addressDelivery(orderRequestWebDto.getAddressDelivery())
                 .addressReferenceDelivery(orderRequestWebDto.getAddressReferenceDelivery())
+                .build();
+    }
+
+    public OrderViewComplete convertOrderViewToOrderViewComplete(OrderView orderView, List<OrderDetailView> orderDetailViews) {
+        return OrderViewComplete.builder()
+                .orderId(orderView.getOrderId())
+                .clientDocumentNumber(orderView.getClientDocumentNumber())
+                .clientName(orderView.getClientName())
+                .employeeName(orderView.getEmployeeName())
+                .orderDate(orderView.getOrderDate())
+                .orderDeliveredDate(orderView.getOrderDeliveredDate())
+                .orderStatus(orderView.getOrderStatus())
+                .subtotal(orderView.getSubtotal())
+                .igv(orderView.getIgv())
+                .deliveryCost(orderView.getDeliveryCost())
+                .total(orderView.getTotal())
+                .phoneNumber(orderView.getPhoneNumber())
+                .email(orderView.getEmail())
+                .paymentMethod(orderView.getPaymentMethod())
+                .addressDelivery(orderView.getAddressDelivery())
+                .addressReferenceDelivery(orderView.getAddressReferenceDelivery())
+                .details(orderDetailViews)
                 .build();
     }
 }

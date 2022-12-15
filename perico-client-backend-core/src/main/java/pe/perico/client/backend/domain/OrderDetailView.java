@@ -14,11 +14,14 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProductDetail implements Serializable {
+public class OrderDetailView implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Long productDetailId;
+    private Long orderDetailId;
     private Long productId;
-    private Long supplyId;
-    private Double quantity;
+    private String categoryName;
+    private String productName;
+    private Integer quantity;
+    private Double price;
+    private String productImageUrl;
 }

@@ -7,7 +7,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 import pe.perico.client.backend.constants.Constants;
 import pe.perico.client.backend.controller.web.dto.*;
 import pe.perico.client.backend.service.*;
@@ -101,6 +100,17 @@ public class PericoController {
             }
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
+
+    @GetMapping("/orders")
+    public HttpEntity<ListOrderResponseWebDto> getOrders(@RequestHeader MultiValueMap<String, String> headers, @RequestParam(required = false) String orderStatus) {
+        if (validateHeader(headers)) {
+            ListOrderResponseWebDto response = orderService.findAllOrders(orderStatus);
+            return ResponseEntity.status(HttpStatus.OK.value())
+                    .contentType(MediaType.APPLICATION_JSON).body(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ListOrderResponseWebDto());
         }
     }
 

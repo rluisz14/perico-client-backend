@@ -10,11 +10,14 @@ import pe.perico.client.backend.controller.web.dto.*;
 import pe.perico.client.backend.db.OrderDetailRepository;
 import pe.perico.client.backend.db.OrderRepository;
 import pe.perico.client.backend.db.UserRepository;
+import pe.perico.client.backend.domain.OrderDetailView;
+import pe.perico.client.backend.domain.OrderView;
 import pe.perico.client.backend.domain.User;
 import pe.perico.client.backend.mapper.OrderDetailMapper;
 import pe.perico.client.backend.mapper.OrderMapper;
 import pe.perico.client.backend.util.Util;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -58,6 +61,19 @@ public class OrderServiceImpl implements OrderService {
         });
 
         return orderResponseWebDto;
+    }
+
+    @Override
+    public ListOrderResponseWebDto findAllOrders(String orderStatus) {
+        ListOrderResponseWebDto listOrderResponseWebDto = new ListOrderResponseWebDto();
+        listOrderResponseWebDto.setOrders(new ArrayList<>());
+        List<OrderView> orders = orderRepository.findAllOrders(orderStatus);
+        orders.stream().forEach(order -> {
+            List<OrderDetailView> orderDetailViews = orderDetailRepository.findOrderDetailByOrderId(order.getOrderId());
+            listOrderResponseWebDto.getOrders().add(orderMapper.convertOrderViewToOrderViewComplete(order, orderDetailViews));
+        });
+
+        return listOrderResponseWebDto;
     }
 
     private List<ProductOrderRequestWebDto> setQuantityForEachProduct(List<ProductOrderRequestWebDto> products) {
