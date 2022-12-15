@@ -1,7 +1,6 @@
 package pe.perico.client.backend.db;
 
 import pe.perico.client.backend.domain.Person;
-import pe.perico.client.backend.domain.User;
 
 import java.util.Optional;
 

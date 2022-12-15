@@ -1,5 +1,6 @@
 package pe.perico.client.backend.service;
 
+import pe.perico.client.backend.controller.web.dto.ProductDetailResponseWebDto;
 import pe.perico.client.backend.controller.web.dto.ProductResponseWebDto;
 
 /**
@@ -8,4 +9,5 @@ import pe.perico.client.backend.controller.web.dto.ProductResponseWebDto;
 public interface ProductService {
 
     ProductResponseWebDto getProductByCategoryId(Long categoryId);
+    ProductDetailResponseWebDto findProductDetailByProductId(Long productId);
 }

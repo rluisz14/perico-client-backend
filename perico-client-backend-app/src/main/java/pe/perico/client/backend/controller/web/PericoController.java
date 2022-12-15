@@ -70,6 +70,17 @@ public class PericoController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ProductResponseWebDto());
         }
     }
+
+    @GetMapping("/orders/product-details")
+    public HttpEntity<ProductDetailResponseWebDto> getProductDetails(@RequestHeader MultiValueMap<String, String> headers, @RequestParam Long productId) {
+        if (validateHeader(headers)) {
+            ProductDetailResponseWebDto response = productService.findProductDetailByProductId(productId);
+            return ResponseEntity.status(HttpStatus.OK.value())
+                    .contentType(MediaType.APPLICATION_JSON).body(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ProductDetailResponseWebDto());
+        }
+    }
     
     @PostMapping("/priceDetails")
     public HttpEntity<PriceDetailsResponseWebDto> calculatePriceDetails(@RequestHeader MultiValueMap<String, String> headers, @RequestBody PriceDetailsRequestWebDto priceDetailsRequestWebDto) {
