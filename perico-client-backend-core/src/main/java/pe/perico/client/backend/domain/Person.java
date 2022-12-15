@@ -23,7 +23,8 @@ public class Person implements Serializable {
     private String personDocument;
     private String personName;
     private String personPhoneNumber;
+    private String personEmail;
     private String personAddress;
     private String personAddressReference;
-    private String personBirthday;
+    private String personBirthdate;
 }

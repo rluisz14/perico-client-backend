@@ -29,6 +29,7 @@ public class UserRepositoryImpl implements UserRepository {
     private static final String FIND_USER_BY_TYPE = "SELECT * FROM [Business].[User] WHERE userType = ? AND userStatus = 'A'";
     private static final String FIND_USER_BY_PERSON_DOCUMENT = "SELECT u.* FROM [Business].[User] u INNER JOIN [Business].[Person] p ON u.personId = p.personId WHERE p.personDocument = ?";
     private static final String FIND_USER_BY_USERNAME_PASSWORD = "SELECT * FROM [Business].[User] WHERE userName = ? AND userPassword = ?";
+    private static final String FIND_USER_BY_USERNAME = "SELECT * FROM [Business].[User] WHERE userName = ?";
 
     @Override
     public Optional<User> findUserByType(String userType) {
@@ -57,6 +58,17 @@ public class UserRepositoryImpl implements UserRepository {
         User user;
         try {
             user = jdbcTemplate.query(FIND_USER_BY_USERNAME_PASSWORD, new Object[]{username, password}, userRowMapper).get(0);
+        } catch (IndexOutOfBoundsException e){
+            user = null;
+        }
+        return Optional.ofNullable(user);
+    }
+
+    @Override
+    public Optional<User> findUserByUserName(String username) {
+        User user;
+        try {
+            user = jdbcTemplate.query(FIND_USER_BY_USERNAME, new Object[]{username}, userRowMapper).get(0);
         } catch (IndexOutOfBoundsException e){
             user = null;
         }

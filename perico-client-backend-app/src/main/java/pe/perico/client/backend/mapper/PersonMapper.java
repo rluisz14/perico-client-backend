@@ -20,9 +20,10 @@ public class PersonMapper {
                 .personDocument(personRequestWebDto.getDocumentNumber())
                 .personName(personRequestWebDto.getName())
                 .personPhoneNumber(personRequestWebDto.getPhoneNumber())
+                .personEmail(personRequestWebDto.getEmail())
                 .personAddress(personRequestWebDto.getAddress())
                 .personAddressReference(personRequestWebDto.getAddressReference())
-                .personBirthday(personRequestWebDto.getBirthday())
+                .personBirthdate(personRequestWebDto.getBirthdate())
                 .build();
     }
 }

@@ -132,6 +132,7 @@ CREATE TABLE [Business].[Person](
 	[personDocument] [nvarchar](8) NULL,
 	[personName] [nvarchar](200) NOT NULL,
 	[personPhoneNumber] [nvarchar](20) NULL,
+	[personEmail] [nvarchar](200) NULL,
 	[personAddresss] [nvarchar](200) NULL,
 	[personAddresssReference] [nvarchar](200) NULL,
 	[personBirthday] [nvarchar](20) NULL,

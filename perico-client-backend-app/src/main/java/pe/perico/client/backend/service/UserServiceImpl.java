@@ -23,13 +23,13 @@ public class UserServiceImpl implements UserService {
     public UserResponseWebDto login(String username, String password) {
         Optional<User> userOptional = userRepository.findUserByUserNameAndPassword(username, password);
         if (userOptional.isEmpty()) {
-            throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND, Constants.USER_NOT_EXISTS);
         }
 
         User user = userOptional.get();
 
         if (!Constants.ACTIVE_CODE.equals(user.getUserStatus())) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, Constants.USER_INACTIVE);
         }
 
         UserResponseWebDto userResponseWebDto = new UserResponseWebDto();

@@ -23,7 +23,8 @@ public class PersonRequestWebDto extends RepresentationModel<PersonRequestWebDto
     private String documentNumber;
     private String name;
     private String phoneNumber;
+    private String email;
     private String address;
     private String addressReference;
-    private String birthday;
+    private String birthdate;
 }

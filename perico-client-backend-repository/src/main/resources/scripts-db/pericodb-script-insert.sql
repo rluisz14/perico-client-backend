@@ -162,9 +162,9 @@ INSERT INTO [Business].[ProductDetail]([productId],[supplyId],[quantity]) VALUES
 GO
 
 /****** Object:  Table [Business].[Person]    Script Date: 08/10/2022 15:13:33 ******/
-INSERT INTO [Business].[Person]([personDocument],[personName],[personPhoneNumber],[personAddresss],[personAddresssReference],[personBirthday]) VALUES('41239874','CARLA','992185444','Av Las Rosas 152','Cerca al parque los girasoles','19/11/1990')
+INSERT INTO [Business].[Person]([personDocument],[personName],[personPhoneNumber],[personEmail],[personAddresss],[personAddresssReference],[personBirthdate]) VALUES('41239874','CARLA GOMEZ','992185444','cgomez@gmail.com','Av Las Rosas 152','Cerca al parque los girasoles','19/11/1990')
 GO
-INSERT INTO [Business].[Person]([personDocument],[personName],[personPhoneNumber],[personAddresss],[personAddresssReference],[personBirthday]) VALUES('41239875','LUIS','992185123','Av El Sol 144','Cruce con Av Tres','02/04/1990')
+INSERT INTO [Business].[Person]([personDocument],[personName],[personPhoneNumber],[personEmail],[personAddresss],[personAddresssReference],[personBirthdate]) VALUES('41239875','LUIS ALVAREZ','992185123','lalvarez@gmail.com','Av El Sol 144','Cruce con Av Tres','02/04/1990')
 GO
 
 /****** Object:  Table [Business].[User]    Script Date: 08/10/2022 15:13:33 ******/
