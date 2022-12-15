@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.HttpClientErrorException;
 import pe.perico.client.backend.constants.Constants;
 import pe.perico.client.backend.controller.web.dto.*;
@@ -118,6 +119,9 @@ public class OrderServiceImpl implements OrderService {
 
         products.forEach(product -> {
             List<ProductDetail> productDetails = productDetailRepository.findProductDetailByByProductId(product.getProductId());
+            if (CollectionUtils.isEmpty(productDetails)) {
+                throw new HttpClientErrorException(HttpStatus.PRECONDITION_FAILED, Constants.SUPPLY_NOT_AVAILABLE);
+            }
             productDetails.forEach(productDetail -> {
                 SupplyStock supply = SupplyStock.builder()
                         .supplyId(productDetail.getSupplyId())
@@ -132,10 +136,10 @@ public class OrderServiceImpl implements OrderService {
                 .collect(Collectors.toList());
 
 
-        for (SupplyStock suppliesDistinct : suppliesDistinctList) {
-            for (SupplyStock supplyStock : supplies) {
-                if (suppliesDistinct.getSupplyId().equals(supplyStock.getSupplyId())) {
-                    suppliesDistinct.setQuantityUsed(suppliesDistinct.getQuantityUsed() + supplyStock.getQuantityUsed());
+        for (SupplyStock supplyStock : supplies) {
+            for (SupplyStock supplyDistinctList : suppliesDistinctList) {
+                if (supplyDistinctList.getSupplyId().equals(supplyStock.getSupplyId())) {
+                    supplyDistinctList.setQuantityUsed(supplyDistinctList.getQuantityUsed() + supplyStock.getQuantityUsed());
                 }
             }
         }
