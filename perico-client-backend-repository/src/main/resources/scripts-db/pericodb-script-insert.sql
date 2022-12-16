@@ -86,6 +86,8 @@ INSERT INTO [Business].[Product]([categoryId],[productName],[productDescription]
 GO
 INSERT INTO [Business].[Product]([categoryId],[productName],[productDescription],[productPrice],[productCost],[productRegisterDate],[productImageUrl],[productStatus]) VALUES((SELECT categoryId FROM [Business].[Category] WHERE [categoryName] = 'Gaseosas'),'Inca Kola','Sabor original',5.00,3.00,CURRENT_TIMESTAMP,'https://riquezaperuana.despliegueweb.website/wp-content/uploads/2021/05/Diseno-sin-titulo-9.png','A')
 GO
+INSERT INTO [Business].[Product]([categoryId],[productName],[productDescription],[productPrice],[productCost],[productRegisterDate],[productImageUrl],[productStatus]) VALUES((SELECT categoryId FROM [Business].[Category] WHERE [categoryName] = 'Gaseosas'),'Coca cola','Sabor original',5.00,3.00,CURRENT_TIMESTAMP,'https://riquezaperuana.despliegueweb.website/wp-content/uploads/2021/05/Diseno-sin-titulo-9.png','A')
+GO
 INSERT INTO [Business].[Product]([categoryId],[productName],[productDescription],[productPrice],[productCost],[productRegisterDate],[productImageUrl],[productStatus]) VALUES((SELECT categoryId FROM [Business].[Category] WHERE [categoryName] = 'Cervezas'),'Cusqueña de Trigo','Cerveza Cusqueña Trigo Premium Bier',10.00,7.00,CURRENT_TIMESTAMP,'https://swissbrothers.com/1594-large_default/cerveza-de-trigo-cuzquena-49-33cl.jpg','A')
 GO
 
@@ -103,6 +105,10 @@ GO
 INSERT INTO [Business].[Provider]([providerName],[providerRegisterDate],[providerStatus]) VALUES('Alacena',CURRENT_TIMESTAMP,'A')
 GO
 INSERT INTO [Business].[Provider]([providerName],[providerRegisterDate],[providerStatus]) VALUES('Braedt',CURRENT_TIMESTAMP,'A')
+GO
+INSERT INTO [Business].[Provider]([providerName],[providerRegisterDate],[providerStatus]) VALUES('Bimbo',CURRENT_TIMESTAMP,'A')
+GO
+INSERT INTO [Business].[Provider]([providerName],[providerRegisterDate],[providerStatus]) VALUES('Laive',CURRENT_TIMESTAMP,'A')
 GO
 
 /****** Object:  Table [Business].[Supply]    Script Date: 08/10/2022 15:13:33 ******/
@@ -122,7 +128,7 @@ INSERT INTO [Business].[Supply]([providerId],[supplyName],[metricUnits],[supplyC
 GO
 INSERT INTO [Business].[Supply]([providerId],[supplyName],[metricUnits],[supplyCost],[supplyStock],[supplyRegisterDate],[supplyStatus]) VALUES ((SELECT [providerId] FROM [Business].[Provider] WHERE [providerName] = 'Coca cola S.A.C'),'Coca cola','Lt',4.00,40.00,CURRENT_TIMESTAMP,'A')
 GO
-INSERT INTO [Business].[Supply]([providerId],[supplyName],[metricUnits],[supplyCost],[supplyStock],[supplyRegisterDate],[supplyStatus]) VALUES ((SELECT [providerId] FROM [Business].[Provider] WHERE [providerName] = 'Coca cola S.A.C'),'Inka cola','Lt',4.00,40.00,CURRENT_TIMESTAMP,'A')
+INSERT INTO [Business].[Supply]([providerId],[supplyName],[metricUnits],[supplyCost],[supplyStock],[supplyRegisterDate],[supplyStatus]) VALUES ((SELECT [providerId] FROM [Business].[Provider] WHERE [providerName] = 'Coca cola S.A.C'),'Inca kola','Lt',4.00,40.00,CURRENT_TIMESTAMP,'A')
 GO
 INSERT INTO [Business].[Supply]([providerId],[supplyName],[metricUnits],[supplyCost],[supplyStock],[supplyRegisterDate],[supplyStatus]) VALUES ((SELECT [providerId] FROM [Business].[Provider] WHERE [providerName] = 'Coca cola S.A.C'),'Sprite','Lt',3.00,40.00,CURRENT_TIMESTAMP,'A')
 GO
@@ -135,6 +141,12 @@ GO
 INSERT INTO [Business].[Supply]([providerId],[supplyName],[metricUnits],[supplyCost],[supplyStock],[supplyRegisterDate],[supplyStatus]) VALUES ((SELECT [providerId] FROM [Business].[Provider] WHERE [providerName] = 'San fernando'),'Pechuga de pavo','Kg',11.00,40.00,CURRENT_TIMESTAMP,'A')
 GO
 INSERT INTO [Business].[Supply]([providerId],[supplyName],[metricUnits],[supplyCost],[supplyStock],[supplyRegisterDate],[supplyStatus]) VALUES ((SELECT [providerId] FROM [Business].[Provider] WHERE [providerName] = 'Braedt'),'Hot dog','Kg',17.00,10.00,CURRENT_TIMESTAMP,'A')
+GO
+INSERT INTO [Business].[Supply]([providerId],[supplyName],[metricUnits],[supplyCost],[supplyStock],[supplyRegisterDate],[supplyStatus]) VALUES ((SELECT [providerId] FROM [Business].[Provider] WHERE [providerName] = 'Braedt'),'Jamon','Kg',15.00,10.00,CURRENT_TIMESTAMP,'A')
+GO
+INSERT INTO [Business].[Supply]([providerId],[supplyName],[metricUnits],[supplyCost],[supplyStock],[supplyRegisterDate],[supplyStatus]) VALUES ((SELECT [providerId] FROM [Business].[Provider] WHERE [providerName] = 'Laive'),'Queso americano','Kg',15.00,10.00,CURRENT_TIMESTAMP,'A')
+GO
+INSERT INTO [Business].[Supply]([providerId],[supplyName],[metricUnits],[supplyCost],[supplyStock],[supplyRegisterDate],[supplyStatus]) VALUES ((SELECT [providerId] FROM [Business].[Provider] WHERE [providerName] = 'Laive'),'Queso cheddar','Kg',18.00,10.00,CURRENT_TIMESTAMP,'A')
 GO
 INSERT INTO [Business].[Supply]([providerId],[supplyName],[metricUnits],[supplyCost],[supplyStock],[supplyRegisterDate],[supplyStatus]) VALUES ((SELECT [providerId] FROM [Business].[Provider] WHERE [providerName] = 'Huevos la calera'),'Huevo','Kg',9.00,10.00,CURRENT_TIMESTAMP,'A')
 GO
@@ -150,6 +162,11 @@ INSERT INTO [Business].[Supply]([providerId],[supplyName],[metricUnits],[supplyC
 GO
 INSERT INTO [Business].[Supply]([providerId],[supplyName],[metricUnits],[supplyCost],[supplyStock],[supplyRegisterDate],[supplyStatus]) VALUES ((SELECT [providerId] FROM [Business].[Provider] WHERE [providerName] = 'Alacena'),'Tari','Kg',20.00,10.00,CURRENT_TIMESTAMP,'A')
 GO
+INSERT INTO [Business].[Supply]([providerId],[supplyName],[metricUnits],[supplyCost],[supplyStock],[supplyRegisterDate],[supplyStatus]) VALUES ((SELECT [providerId] FROM [Business].[Provider] WHERE [providerName] = 'Bimbo'),'Pan hamburguesa','Kg',15.00,10.00,CURRENT_TIMESTAMP,'A')
+GO
+INSERT INTO [Business].[Supply]([providerId],[supplyName],[metricUnits],[supplyCost],[supplyStock],[supplyRegisterDate],[supplyStatus]) VALUES ((SELECT [providerId] FROM [Business].[Provider] WHERE [providerName] = 'Bimbo'),'Pan de molde','Kg',12.00,10.00,CURRENT_TIMESTAMP,'A')
+GO
+
 
 /****** Object:  Table [Business].[ProductDetail]    Script Date: 08/10/2022 15:13:33 ******/
 INSERT INTO [Business].[ProductDetail]([productId],[supplyId],[quantity]) VALUES ((SELECT productId FROM [Business].[Product] WHERE [productName] = 'Solo una mordida' AND [categoryId] = (SELECT categoryId FROM [Business].[Category] WHERE [categoryName] = 'Salchipapas')) , (SELECT [supplyId] FROM [Business].[Supply] WHERE [supplyName] = 'Papa amarilla' AND [providerId] = (SELECT [providerId] FROM [Business].[Provider] WHERE [providerName] = 'Verduras Carmen')),0.25)
@@ -172,6 +189,29 @@ GO
 INSERT INTO [Business].[ProductDetail]([productId],[supplyId],[quantity]) VALUES ((SELECT productId FROM [Business].[Product] WHERE [productName] = 'Tentación' AND [categoryId] = (SELECT categoryId FROM [Business].[Category] WHERE [categoryName] = 'Salchipapas')) , (SELECT [supplyId] FROM [Business].[Supply] WHERE [supplyName] = 'Mayonesa' AND [providerId] = (SELECT [providerId] FROM [Business].[Provider] WHERE [providerName] = 'Alacena')),0.10)
 GO
 INSERT INTO [Business].[ProductDetail]([productId],[supplyId],[quantity]) VALUES ((SELECT productId FROM [Business].[Product] WHERE [productName] = 'Tentación' AND [categoryId] = (SELECT categoryId FROM [Business].[Category] WHERE [categoryName] = 'Salchipapas')) , (SELECT [supplyId] FROM [Business].[Supply] WHERE [supplyName] = 'Mostaza' AND [providerId] = (SELECT [providerId] FROM [Business].[Provider] WHERE [providerName] = 'Alacena')),0.10)
+GO
+
+INSERT INTO [Business].[ProductDetail]([productId],[supplyId],[quantity]) VALUES ((SELECT productId FROM [Business].[Product] WHERE [productName] = 'Triple' AND [categoryId] = (SELECT categoryId FROM [Business].[Category] WHERE [categoryName] = 'Salchipapas')) , (SELECT [supplyId] FROM [Business].[Supply] WHERE [supplyName] = 'Papa amarilla' AND [providerId] = (SELECT [providerId] FROM [Business].[Provider] WHERE [providerName] = 'Verduras Carmen')),0.25)
+GO
+INSERT INTO [Business].[ProductDetail]([productId],[supplyId],[quantity]) VALUES ((SELECT productId FROM [Business].[Product] WHERE [productName] = 'Triple' AND [categoryId] = (SELECT categoryId FROM [Business].[Category] WHERE [categoryName] = 'Salchipapas')) , (SELECT [supplyId] FROM [Business].[Supply] WHERE [supplyName] = 'Hot dog' AND [providerId] = (SELECT [providerId] FROM [Business].[Provider] WHERE [providerName] = 'Braedt')),0.25)
+GO
+
+INSERT INTO [Business].[ProductDetail]([productId],[supplyId],[quantity]) VALUES ((SELECT productId FROM [Business].[Product] WHERE [productName] = 'Inca kola' AND [categoryId] = (SELECT categoryId FROM [Business].[Category] WHERE [categoryName] = 'Gaseosas')) , (SELECT [supplyId] FROM [Business].[Supply] WHERE [supplyName] = 'Inca kola' AND [providerId] = (SELECT [providerId] FROM [Business].[Provider] WHERE [providerName] = 'Coca cola S.A.C')),0.50)
+GO
+INSERT INTO [Business].[ProductDetail]([productId],[supplyId],[quantity]) VALUES ((SELECT productId FROM [Business].[Product] WHERE [productName] = 'Coca cola' AND [categoryId] = (SELECT categoryId FROM [Business].[Category] WHERE [categoryName] = 'Gaseosas')) , (SELECT [supplyId] FROM [Business].[Supply] WHERE [supplyName] = 'Coca cola' AND [providerId] = (SELECT [providerId] FROM [Business].[Provider] WHERE [providerName] = 'Coca cola S.A.C')),0.50)
+GO
+
+INSERT INTO [Business].[ProductDetail]([productId],[supplyId],[quantity]) VALUES ((SELECT productId FROM [Business].[Product] WHERE [productName] = 'Solo una mordida' AND [categoryId] = (SELECT categoryId FROM [Business].[Category] WHERE [categoryName] = 'Sandwiches')) , (SELECT [supplyId] FROM [Business].[Supply] WHERE [supplyName] = 'Lechuga' AND [providerId] = (SELECT [providerId] FROM [Business].[Provider] WHERE [providerName] = 'Verduras Carmen')),0.10)
+GO
+INSERT INTO [Business].[ProductDetail]([productId],[supplyId],[quantity]) VALUES ((SELECT productId FROM [Business].[Product] WHERE [productName] = 'Solo una mordida' AND [categoryId] = (SELECT categoryId FROM [Business].[Category] WHERE [categoryName] = 'Sandwiches')) , (SELECT [supplyId] FROM [Business].[Supply] WHERE [supplyName] = 'Tomate' AND [providerId] = (SELECT [providerId] FROM [Business].[Provider] WHERE [providerName] = 'Verduras Carmen')),0.10)
+GO
+INSERT INTO [Business].[ProductDetail]([productId],[supplyId],[quantity]) VALUES ((SELECT productId FROM [Business].[Product] WHERE [productName] = 'Solo una mordida' AND [categoryId] = (SELECT categoryId FROM [Business].[Category] WHERE [categoryName] = 'Sandwiches')) , (SELECT [supplyId] FROM [Business].[Supply] WHERE [supplyName] = 'Jamon' AND [providerId] = (SELECT [providerId] FROM [Business].[Provider] WHERE [providerName] = 'Braedt')),0.10)
+GO
+INSERT INTO [Business].[ProductDetail]([productId],[supplyId],[quantity]) VALUES ((SELECT productId FROM [Business].[Product] WHERE [productName] = 'Solo una mordida' AND [categoryId] = (SELECT categoryId FROM [Business].[Category] WHERE [categoryName] = 'Sandwiches')) , (SELECT [supplyId] FROM [Business].[Supply] WHERE [supplyName] = 'Queso americano' AND [providerId] = (SELECT [providerId] FROM [Business].[Provider] WHERE [providerName] = 'Laive')),0.10)
+GO
+INSERT INTO [Business].[ProductDetail]([productId],[supplyId],[quantity]) VALUES ((SELECT productId FROM [Business].[Product] WHERE [productName] = 'Solo una mordida' AND [categoryId] = (SELECT categoryId FROM [Business].[Category] WHERE [categoryName] = 'Sandwiches')) , (SELECT [supplyId] FROM [Business].[Supply] WHERE [supplyName] = 'Pan de molde' AND [providerId] = (SELECT [providerId] FROM [Business].[Provider] WHERE [providerName] = 'Bimbo')),0.10)
+GO
+INSERT INTO [Business].[ProductDetail]([productId],[supplyId],[quantity]) VALUES ((SELECT productId FROM [Business].[Product] WHERE [productName] = 'Solo una mordida' AND [categoryId] = (SELECT categoryId FROM [Business].[Category] WHERE [categoryName] = 'Sandwiches')) , (SELECT [supplyId] FROM [Business].[Supply] WHERE [supplyName] = 'Huevo' AND [providerId] = (SELECT [providerId] FROM [Business].[Provider] WHERE [providerName] = 'Huevos la calera')),0.10)
 GO
 
 /****** Object:  Table [Business].[Person]    Script Date: 08/10/2022 15:13:33 ******/
